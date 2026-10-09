@@ -1,0 +1,1 @@
+# Retain directory structure in git. Raw CSV files are ignored via .gitignore.

@@ -1,0 +1,93 @@
+# ==============================================================================
+# CommerceLens AI - .gitignore
+# ==============================================================================
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environments
+.venv/
+venv/
+ENV/
+env/
+.env/
+conda-env/
+
+# Environment Variables & Secrets
+.env
+*.env
+!.env.example
+secrets/
+*.pem
+*.key
+
+# Data directories (keep directory structure via .gitkeep, ignore data files)
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+
+# Large reports and model artifacts
+reports/*.html
+reports/*.pdf
+models/*.joblib
+models/*.pkl
+models/*.onnx
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+
+# Testing & Coverage
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# Linting & Formatting tools
+.mypy_cache/
+.ruff_cache/
+
+# IDE & OS files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Power BI local backup and temporary cache files
+*.pbix.backup
+*.pbit.backup

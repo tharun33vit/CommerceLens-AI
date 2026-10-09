@@ -1,0 +1,1 @@
+# Retain directory structure in git. Cleaned parquet/csv files are ignored via .gitignore.
