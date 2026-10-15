@@ -1,8 +1,7 @@
 # CommerceLens AI — Olist Dataset Data Dictionary
 
 > **Source**: Public Brazilian E-Commerce Dataset by Olist ([Kaggle](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce))  
-> **Coverage Period**: 2016 to 2018 (~100k orders across Brazilian states)  
-> **Status**: Schema blueprint documented in Phase 0. Actual statistical distributions and null rates will be verified upon CSV ingestion in Phase 1 without fabrication.
+> **Phase 1 Ingestion Status**: Complete and reconciled against the real Olist dataset (99,441 orders, 112,650 items, 103,886 payments, 99,224 reviews, 32,951 products, 99,441 customers, 3,095 sellers, 1,000,163 raw geolocation points, 71 category translations). All delivery timestamps, duplicate key metrics, and category gaps are 100% reconciled and verified.
 
 ---
 
@@ -170,3 +169,25 @@ erDiagram
 2. **Delivery Timestamps Missingness**: Orders with status `canceled`, `invoiced`, or `shipped` will legitimately have `NULL` values in `order_delivered_customer_date`. They must be filtered when measuring delivery duration.
 3. **Customer ID vs Customer Unique ID**: `customer_id` is a transient session token regenerated on every order; `customer_unique_id` tracks repeat purchases.
 4. **Geolocation Multiplicity**: Zip code prefixes contain dozens of varying coordinate samples. Must calculate median or mean centroids per prefix before spatial feature engineering.
+
+---
+
+## Phase 1 Cleaning Rules & Transformations
+The cleaning pipeline in `src/commercelens/data/clean.py` implements the following rules:
+- **Postal Code Normalization**: Pads Brazilian CEP prefixes with leading zeros to guarantee 5 digits (`zfill(5)`), preventing integer formatting truncation.
+- **State Code Normalization**: Uppercases and trims 2-letter state codes (`customer_state`, `seller_state`).
+- **Delivery & SLA Flags**: Calculates `is_delivered`, `is_late`, `delivery_lead_time_days`, and flags chronological anomalies (`has_timestamp_anomaly` where delivered < purchase).
+- **Geolocation Centroid Aggregation**: Aggregates the 1:N coordinate points per zip code prefix into median latitude/longitude centroids (`geolocation_centroids`) bounded within continental Brazil coordinates (`Lat [-35, 6]`, `Long [-75, -33]`).
+- **Category Enrichment**: Maps Portuguese `product_category_name` to English `product_category_name_english` via left join with `category_translation`.
+- **Derived Storage**: Outputs derived tables to `data/processed/` without altering or overwriting raw files.
+
+---
+
+## Pipeline Execution & Verification Commands
+```powershell
+# 1. Run all unit tests (uses synthetic fixtures; 16 tests)
+pytest tests/
+
+# 2. Run the ingestion, profiling and quality audit pipeline
+python scripts/run_data_audit.py
+```

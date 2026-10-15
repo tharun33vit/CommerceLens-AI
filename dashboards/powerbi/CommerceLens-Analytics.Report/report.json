@@ -1,0 +1,498 @@
+{
+  "config": "{\"version\":\"5.73\",\"themeCollection\":{\"baseTheme\":{\"name\":\"CY24SU08\",\"type\":2,\"version\":{\"visual\":\"1.8.89\",\"report\":\"2.0.89\",\"page\":\"1.3.89\"}}},\"activeSectionIndex\":3,\"defaultDrillFilterOtherVisuals\":true,\"linguisticSchemaSyncVersion\":2,\"settings\":{\"locale\":\"en-US\",\"useEnhancedTooltips\":false}}",
+  "layoutOptimization": 0,
+  "resourcePackages": [
+    {
+      "resourcePackage": {
+        "disabled": false,
+        "items": [
+          {
+            "name": "CY24SU08",
+            "path": "BaseThemes/CY24SU08.json",
+            "type": 202
+          }
+        ],
+        "name": "SharedResources",
+        "type": 2
+      }
+    }
+  ],
+  "sections": [
+    {
+      "config": "{\"objects\":{\"outspacePane\":[{\"properties\":{\"width\":{\"expr\":{\"Literal\":{\"Value\":\"183L\"}}}}}]}}",
+      "displayName": "Customer Reviews & Retention",
+      "displayOption": 3,
+      "height": 1300.00,
+      "name": "Section_Customer_Reviews_Retention",
+      "ordinal": 3,
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"1d1a2290f9e3e7c0e52c\",\"layouts\":[{\"id\":0,\"position\":{\"x\":0,\"y\":780,\"z\":12000,\"width\":300,\"height\":205,\"tabOrder\":0}}],\"singleVisual\":{\"visualType\":\"cardVisual\",\"projections\":{\"Data\":[{\"queryRef\":\"_Measures.Completed Review Analyses Count\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"_\",\"Entity\":\"_Measures\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_\"}},\"Property\":\"Completed Review Analyses Count\"},\"Name\":\"_Measures.Completed Review Analyses Count\",\"NativeReferenceName\":\"Completed Review Analyses Count\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_\"}},\"Property\":\"Completed Review Analyses Count\"}}}]},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true}}",
+          "filters": "[]",
+          "height": 205.00,
+          "width": 300.00,
+          "x": 0.00,
+          "y": 780.00,
+          "z": 12000.00
+        },
+        {
+          "config": "{\"name\":\"2912769e9a4206b6bcc0\",\"layouts\":[{\"id\":0,\"position\":{\"x\":603,\"y\":1064,\"width\":297,\"height\":200,\"z\":14004,\"tabOrder\":14004}}],\"singleVisual\":{\"visualType\":\"clusteredBarChart\",\"projections\":{\"Category\":[{\"queryRef\":\"FactReviewThemes.theme_id\",\"active\":true}],\"Y\":[{\"queryRef\":\"CountNonNull(FactReviewThemes.ReviewOrderKey)\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"f\",\"Entity\":\"FactReviewThemes\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"theme_id\"},\"Name\":\"FactReviewThemes.theme_id\",\"NativeReferenceName\":\"theme_id\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"ReviewOrderKey\"}},\"Function\":5},\"Name\":\"CountNonNull(FactReviewThemes.ReviewOrderKey)\",\"NativeReferenceName\":\"Count of ReviewOrderKey\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"ReviewOrderKey\"}},\"Function\":5}}}]},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true,\"vcObjects\":{\"title\":[{\"properties\":{\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Review Theme Frequency'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 200.00,
+          "width": 297.00,
+          "x": 603.00,
+          "y": 1064.00,
+          "z": 14004.00
+        },
+        {
+          "config": "{\"name\":\"2e5865fe49d64bda59e0\",\"layouts\":[{\"id\":0,\"position\":{\"x\":900,\"y\":820,\"z\":14001,\"width\":360,\"height\":160,\"tabOrder\":14001}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"FactReviewAnalysis.model_name\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"f\",\"Entity\":\"FactReviewAnalysis\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"model_name\"},\"Name\":\"FactReviewAnalysis.model_name\",\"NativeReferenceName\":\"model_name\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"general\":[{\"properties\":{}}]},\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Analysis Model'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 160.00,
+          "width": 360.00,
+          "x": 900.00,
+          "y": 820.00,
+          "z": 14001.00
+        },
+        {
+          "config": "{\"name\":\"4e09c2e8e441baa79f48\",\"layouts\":[{\"id\":0,\"position\":{\"x\":300,\"y\":780,\"z\":13000,\"width\":300,\"height\":205,\"tabOrder\":1000}}],\"singleVisual\":{\"visualType\":\"cardVisual\",\"projections\":{\"Data\":[{\"queryRef\":\"_Measures.Failed Review Analyses Count\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"_\",\"Entity\":\"_Measures\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_\"}},\"Property\":\"Failed Review Analyses Count\"},\"Name\":\"_Measures.Failed Review Analyses Count\",\"NativeReferenceName\":\"Failed Review Analyses Count\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_\"}},\"Property\":\"Failed Review Analyses Count\"}}}]},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true}}",
+          "filters": "[]",
+          "height": 205.00,
+          "width": 300.00,
+          "x": 300.00,
+          "y": 780.00,
+          "z": 13000.00
+        },
+        {
+          "config": "{\"name\":\"6473bbcc06f3a921a237\",\"layouts\":[{\"id\":0,\"position\":{\"x\":0,\"y\":1064.2857142857144,\"z\":14002,\"width\":300,\"height\":200,\"tabOrder\":14002}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"FactReviewAnalysis.status\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"f\",\"Entity\":\"FactReviewAnalysis\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"status\"},\"Name\":\"FactReviewAnalysis.status\",\"NativeReferenceName\":\"status\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"general\":[{\"properties\":{}}]},\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Processing Status'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 200.00,
+          "width": 300.00,
+          "x": 0.00,
+          "y": 1064.29,
+          "z": 14002.00
+        },
+        {
+          "config": "{\"name\":\"CSATCohortComparisonChart\",\"layouts\":[{\"id\":0,\"position\":{\"x\":640,\"y\":210,\"z\":9000,\"width\":620,\"height\":310,\"tabOrder\":3000}}],\"singleVisual\":{\"visualType\":\"barChart\",\"projections\":{\"Category\":[{\"queryRef\":\"FactOrders.is_late\",\"active\":true}],\"Y\":[{\"queryRef\":\"_Measures.Average Review Score\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"FactOrders\",\"Entity\":\"FactOrders\",\"Type\":0},{\"Name\":\"_Measures\",\"Entity\":\"_Measures\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"FactOrders\"}},\"Property\":\"is_late\"},\"Name\":\"FactOrders.is_late\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_Measures\"}},\"Property\":\"Average Review Score\"},\"Name\":\"_Measures.Average Review Score\"}]},\"columnProperties\":{\"FactOrders.is_late\":{\"displayName\":\"Delivery Timeliness\"}},\"drillFilterOtherVisuals\":true}}",
+          "filters": "[]",
+          "height": 310.00,
+          "width": 620.00,
+          "x": 640.00,
+          "y": 210.00,
+          "z": 9000.00
+        },
+        {
+          "config": "{\"name\":\"HeaderCard4\",\"layouts\":[{\"id\":0,\"position\":{\"x\":20,\"y\":15,\"z\":0,\"width\":1240,\"height\":65,\"tabOrder\":4000}}],\"singleVisual\":{\"visualType\":\"textbox\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"paragraphs\":[{\"textRuns\":[{\"value\":\"CommerceLens AI — Customer Reviews & Retention | Observational CSAT, Late Delivery Penalty & Repurchase RFM\",\"textStyle\":{\"fontFamily\":\"Segoe UI Semibold\",\"fontSize\":\"16pt\",\"color\":{\"solid\":{\"color\":\"#0F172A\"}}}}]}]}}]}}}",
+          "height": 65.00,
+          "width": 1240.00,
+          "x": 20.00,
+          "y": 15.00,
+          "z": 0.00
+        },
+        {
+          "config": "{\"name\":\"KpiCSAT\",\"layouts\":[{\"id\":0,\"position\":{\"x\":20,\"y\":90,\"z\":1000,\"width\":165,\"height\":105,\"tabOrder\":5000}}],\"singleVisual\":{\"visualType\":\"card\",\"projections\":{\"Values\":[{\"queryRef\":\"_Measures.Average Review Score\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"_Measures\",\"Entity\":\"_Measures\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_Measures\"}},\"Property\":\"Average Review Score\"},\"Name\":\"_Measures.Average Review Score\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"labels\":[{\"properties\":{\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"24D\"}}}}}]}}}",
+          "height": 105.00,
+          "width": 165.00,
+          "x": 20.00,
+          "y": 90.00,
+          "z": 1000.00
+        },
+        {
+          "config": "{\"name\":\"KpiCSATPenalty\",\"layouts\":[{\"id\":0,\"position\":{\"x\":545,\"y\":90,\"z\":4000,\"width\":165,\"height\":105,\"tabOrder\":6000}}],\"singleVisual\":{\"visualType\":\"card\",\"projections\":{\"Values\":[{\"queryRef\":\"_Measures.CSAT Delivery Penalty\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"_Measures\",\"Entity\":\"_Measures\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_Measures\"}},\"Property\":\"CSAT Delivery Penalty\"},\"Name\":\"_Measures.CSAT Delivery Penalty\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"labels\":[{\"properties\":{\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"24D\"}}}}}]}}}",
+          "height": 105.00,
+          "width": 165.00,
+          "x": 545.00,
+          "y": 90.00,
+          "z": 4000.00
+        },
+        {
+          "config": "{\"name\":\"KpiLateCSAT\",\"layouts\":[{\"id\":0,\"position\":{\"x\":370,\"y\":90,\"z\":3000,\"width\":165,\"height\":105,\"tabOrder\":7000}}],\"singleVisual\":{\"visualType\":\"card\",\"projections\":{\"Values\":[{\"queryRef\":\"_Measures.Late Order CSAT\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"_Measures\",\"Entity\":\"_Measures\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_Measures\"}},\"Property\":\"Late Order CSAT\"},\"Name\":\"_Measures.Late Order CSAT\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"labels\":[{\"properties\":{\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"24D\"}}}}}]}}}",
+          "height": 105.00,
+          "width": 165.00,
+          "x": 370.00,
+          "y": 90.00,
+          "z": 3000.00
+        },
+        {
+          "config": "{\"name\":\"KpiOnTimeCSAT\",\"layouts\":[{\"id\":0,\"position\":{\"x\":195,\"y\":90,\"z\":2000,\"width\":165,\"height\":105,\"tabOrder\":8000}}],\"singleVisual\":{\"visualType\":\"card\",\"projections\":{\"Values\":[{\"queryRef\":\"_Measures.On-Time Order CSAT\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"_Measures\",\"Entity\":\"_Measures\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_Measures\"}},\"Property\":\"On-Time Order CSAT\"},\"Name\":\"_Measures.On-Time Order CSAT\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"labels\":[{\"properties\":{\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"24D\"}}}}}]}}}",
+          "height": 105.00,
+          "width": 165.00,
+          "x": 195.00,
+          "y": 90.00,
+          "z": 2000.00
+        },
+        {
+          "config": "{\"name\":\"KpiRepeatRate\",\"layouts\":[{\"id\":0,\"position\":{\"x\":1090,\"y\":90,\"z\":7000,\"width\":170,\"height\":105,\"tabOrder\":9000}}],\"singleVisual\":{\"visualType\":\"card\",\"projections\":{\"Values\":[{\"queryRef\":\"_Measures.Repeat Customer Rate\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"_Measures\",\"Entity\":\"_Measures\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_Measures\"}},\"Property\":\"Repeat Customer Rate\"},\"Name\":\"_Measures.Repeat Customer Rate\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"labels\":[{\"properties\":{\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"24D\"}}}}}]}}}",
+          "height": 105.00,
+          "width": 170.00,
+          "x": 1090.00,
+          "y": 90.00,
+          "z": 7000.00
+        },
+        {
+          "config": "{\"name\":\"KpiRepeatUsers\",\"layouts\":[{\"id\":0,\"position\":{\"x\":905,\"y\":90,\"z\":6000,\"width\":175,\"height\":105,\"tabOrder\":10000}}],\"singleVisual\":{\"visualType\":\"card\",\"projections\":{\"Values\":[{\"queryRef\":\"_Measures.Repeat Customers Count\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"_Measures\",\"Entity\":\"_Measures\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_Measures\"}},\"Property\":\"Repeat Customers Count\"},\"Name\":\"_Measures.Repeat Customers Count\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"labels\":[{\"properties\":{\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"24D\"}}}}}]}}}",
+          "height": 105.00,
+          "width": 175.00,
+          "x": 905.00,
+          "y": 90.00,
+          "z": 6000.00
+        },
+        {
+          "config": "{\"name\":\"KpiUniqueUsers\",\"layouts\":[{\"id\":0,\"position\":{\"x\":720,\"y\":90,\"z\":5000,\"width\":175,\"height\":105,\"tabOrder\":11000}}],\"singleVisual\":{\"visualType\":\"card\",\"projections\":{\"Values\":[{\"queryRef\":\"_Measures.Total Unique Customers\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"_Measures\",\"Entity\":\"_Measures\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_Measures\"}},\"Property\":\"Total Unique Customers\"},\"Name\":\"_Measures.Total Unique Customers\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"labels\":[{\"properties\":{\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"24D\"}}}}}]}}}",
+          "height": 105.00,
+          "width": 175.00,
+          "x": 720.00,
+          "y": 90.00,
+          "z": 5000.00
+        },
+        {
+          "config": "{\"name\":\"RepeatBuyerComparisonTable\",\"layouts\":[{\"id\":0,\"position\":{\"x\":20,\"y\":535,\"z\":10000,\"width\":780,\"height\":170,\"tabOrder\":12000}}],\"singleVisual\":{\"visualType\":\"tableEx\",\"projections\":{\"Values\":[{\"queryRef\":\"DimCustomers.state\"},{\"queryRef\":\"_Measures.Total Unique Customers\"},{\"queryRef\":\"_Measures.Repeat Customers Count\"},{\"queryRef\":\"_Measures.Repeat Customer Rate\"},{\"queryRef\":\"_Measures.Repeat Buyer GMV\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"DimCustomers\",\"Entity\":\"DimCustomers\",\"Type\":0},{\"Name\":\"_Measures\",\"Entity\":\"_Measures\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"DimCustomers\"}},\"Property\":\"state\"},\"Name\":\"DimCustomers.state\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_Measures\"}},\"Property\":\"Total Unique Customers\"},\"Name\":\"_Measures.Total Unique Customers\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_Measures\"}},\"Property\":\"Repeat Customers Count\"},\"Name\":\"_Measures.Repeat Customers Count\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_Measures\"}},\"Property\":\"Repeat Customer Rate\"},\"Name\":\"_Measures.Repeat Customer Rate\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_Measures\"}},\"Property\":\"Repeat Buyer GMV\"},\"Name\":\"_Measures.Repeat Buyer GMV\"}]},\"columnProperties\":{\"DimCustomers.state\":{\"displayName\":\"Customer State\"}},\"drillFilterOtherVisuals\":true}}",
+          "height": 170.00,
+          "width": 780.00,
+          "x": 20.00,
+          "y": 535.00,
+          "z": 10000.00
+        },
+        {
+          "config": "{\"name\":\"ReviewScoreDistributionChart\",\"layouts\":[{\"id\":0,\"position\":{\"x\":20,\"y\":210,\"z\":8000,\"width\":600,\"height\":310,\"tabOrder\":13000}}],\"singleVisual\":{\"visualType\":\"columnChart\",\"projections\":{\"Category\":[{\"queryRef\":\"FactReviews.review_score\",\"active\":true}],\"Y\":[{\"queryRef\":\"_Measures.Total Reviews\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"FactReviews\",\"Entity\":\"FactReviews\",\"Type\":0},{\"Name\":\"_Measures\",\"Entity\":\"_Measures\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"FactReviews\"}},\"Property\":\"review_score\"},\"Name\":\"FactReviews.review_score\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_Measures\"}},\"Property\":\"Total Reviews\"},\"Name\":\"_Measures.Total Reviews\"}]},\"drillFilterOtherVisuals\":true}}",
+          "height": 310.00,
+          "width": 600.00,
+          "x": 20.00,
+          "y": 210.00,
+          "z": 8000.00
+        },
+        {
+          "config": "{\"name\":\"ReviewScoreSlicer\",\"layouts\":[{\"id\":0,\"position\":{\"x\":815,\"y\":535,\"z\":11000,\"width\":445,\"height\":170,\"tabOrder\":14000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"FactReviews.review_score\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"FactReviews\",\"Entity\":\"FactReviews\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"FactReviews\"}},\"Property\":\"review_score\"},\"Name\":\"FactReviews.review_score\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{}}]}}}",
+          "filters": "[]",
+          "height": 170.00,
+          "width": 445.00,
+          "x": 815.00,
+          "y": 535.00,
+          "z": 11000.00
+        },
+        {
+          "config": "{\"name\":\"ba66c9422f4cb45092e9\",\"layouts\":[{\"id\":0,\"position\":{\"x\":302.8571428571429,\"y\":1064.2857142857144,\"z\":14003,\"width\":300,\"height\":200,\"tabOrder\":14003}}],\"singleVisual\":{\"visualType\":\"clusteredBarChart\",\"projections\":{\"Category\":[{\"queryRef\":\"FactReviewAnalysis.sentiment_label\",\"active\":true}],\"Y\":[{\"queryRef\":\"_Measures.Completed Review Analyses Count\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"f\",\"Entity\":\"FactReviewAnalysis\",\"Type\":0},{\"Name\":\"_\",\"Entity\":\"_Measures\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"sentiment_label\"},\"Name\":\"FactReviewAnalysis.sentiment_label\",\"NativeReferenceName\":\"sentiment_label\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_\"}},\"Property\":\"Completed Review Analyses Count\"},\"Name\":\"_Measures.Completed Review Analyses Count\",\"NativeReferenceName\":\"Completed Review Analyses Count\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_\"}},\"Property\":\"Completed Review Analyses Count\"}}}]},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true,\"vcObjects\":{\"title\":[{\"properties\":{\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Completed Review Sentiment Distribution'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 200.00,
+          "width": 300.00,
+          "x": 302.86,
+          "y": 1064.29,
+          "z": 14003.00
+        },
+        {
+          "config": "{\"name\":\"e5f688a005e2ec28ecf5\",\"layouts\":[{\"id\":0,\"position\":{\"x\":600,\"y\":780,\"z\":14000,\"width\":300,\"height\":200,\"tabOrder\":2000}}],\"singleVisual\":{\"visualType\":\"cardVisual\",\"projections\":{\"Data\":[{\"queryRef\":\"_Measures.Review Intelligence Pilot Coverage %\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"_\",\"Entity\":\"_Measures\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_\"}},\"Property\":\"Review Intelligence Pilot Coverage %\"},\"Name\":\"_Measures.Review Intelligence Pilot Coverage %\",\"NativeReferenceName\":\"Review Intelligence Pilot Coverage %\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_\"}},\"Property\":\"Review Intelligence Pilot Coverage %\"}}}]},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true}}",
+          "filters": "[]",
+          "height": 200.00,
+          "width": 300.00,
+          "x": 600.00,
+          "y": 780.00,
+          "z": 14000.00
+        }
+      ],
+      "width": 1280.00
+    },
+    {
+      "config": "{}",
+      "displayName": "Executive Overview",
+      "displayOption": 1,
+      "height": 720.00,
+      "name": "Section_Executive_Overview",
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"CustomerStateSlicer\",\"layouts\":[{\"id\":0,\"position\":{\"x\":1045,\"y\":535,\"z\":11000,\"width\":215,\"height\":170}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"DimCustomers.state\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"DimCustomers\",\"Entity\":\"DimCustomers\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"DimCustomers\"}},\"Property\":\"state\"},\"Name\":\"DimCustomers.state\"}]},\"columnProperties\":{\"DimCustomers.state\":{\"displayName\":\"Customer State\"}},\"drillFilterOtherVisuals\":true}}",
+          "height": 170.00,
+          "width": 215.00,
+          "x": 1045.00,
+          "y": 535.00,
+          "z": 11000.00
+        },
+        {
+          "config": "{\"name\":\"FulfillmentStatusDonut\",\"layouts\":[{\"id\":0,\"position\":{\"x\":815,\"y\":210,\"z\":8000,\"width\":445,\"height\":310}}],\"singleVisual\":{\"visualType\":\"pieChart\",\"projections\":{\"Category\":[{\"queryRef\":\"FactOrders.order_status\",\"active\":true}],\"Y\":[{\"queryRef\":\"_Measures.Total Orders\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"FactOrders\",\"Entity\":\"FactOrders\",\"Type\":0},{\"Name\":\"_Measures\",\"Entity\":\"_Measures\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"FactOrders\"}},\"Property\":\"order_status\"},\"Name\":\"FactOrders.order_status\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_Measures\"}},\"Property\":\"Total Orders\"},\"Name\":\"_Measures.Total Orders\"}]},\"drillFilterOtherVisuals\":true}}",
+          "height": 310.00,
+          "width": 445.00,
+          "x": 815.00,
+          "y": 210.00,
+          "z": 8000.00
+        },
+        {
+          "config": "{\"name\":\"GMVByCustomerStateBar\",\"layouts\":[{\"id\":0,\"position\":{\"x\":20,\"y\":535,\"z\":9000,\"width\":780,\"height\":170}}],\"singleVisual\":{\"visualType\":\"barChart\",\"projections\":{\"Category\":[{\"queryRef\":\"DimCustomers.state\",\"active\":true}],\"Y\":[{\"queryRef\":\"_Measures.Total GMV\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"DimCustomers\",\"Entity\":\"DimCustomers\",\"Type\":0},{\"Name\":\"_Measures\",\"Entity\":\"_Measures\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"DimCustomers\"}},\"Property\":\"state\"},\"Name\":\"DimCustomers.state\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_Measures\"}},\"Property\":\"Total GMV\"},\"Name\":\"_Measures.Total GMV\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_Measures\"}},\"Property\":\"Total GMV\"}}}]},\"columnProperties\":{\"DimCustomers.state\":{\"displayName\":\"Customer State\"}},\"drillFilterOtherVisuals\":true}}",
+          "height": 170.00,
+          "width": 780.00,
+          "x": 20.00,
+          "y": 535.00,
+          "z": 9000.00
+        },
+        {
+          "config": "{\"name\":\"HeaderCard\",\"layouts\":[{\"id\":0,\"position\":{\"x\":20,\"y\":15,\"z\":0,\"width\":1240,\"height\":65}}],\"singleVisual\":{\"visualType\":\"textbox\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"paragraphs\":[{\"textRuns\":[{\"value\":\"CommerceLens AI — Executive Overview | Marketplace Macro Health & Growth (2016–2018 Olist Snapshot)\",\"textStyle\":{\"fontFamily\":\"Segoe UI Semibold\",\"fontSize\":\"16pt\",\"color\":{\"solid\":{\"color\":\"#0F172A\"}}}}]}]}}]}}}",
+          "height": 65.00,
+          "width": 1240.00,
+          "x": 20.00,
+          "y": 15.00,
+          "z": 0.00
+        },
+        {
+          "config": "{\"name\":\"KpiAOV\",\"layouts\":[{\"id\":0,\"position\":{\"x\":430,\"y\":90,\"z\":3000,\"width\":190,\"height\":105}}],\"singleVisual\":{\"visualType\":\"card\",\"projections\":{\"Values\":[{\"queryRef\":\"_Measures.Average Order Value (AOV)\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"_Measures\",\"Entity\":\"_Measures\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_Measures\"}},\"Property\":\"Average Order Value (AOV)\"},\"Name\":\"_Measures.Average Order Value (AOV)\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"labels\":[{\"properties\":{\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"24D\"}}},\"labelDisplayUnits\":{\"expr\":{\"Literal\":{\"Value\":\"1D\"}}},\"labelPrecision\":{\"expr\":{\"Literal\":{\"Value\":\"2D\"}}}}}]}}}",
+          "height": 105.00,
+          "width": 190.00,
+          "x": 430.00,
+          "y": 90.00,
+          "z": 3000.00
+        },
+        {
+          "config": "{\"name\":\"KpiCancelRate\",\"layouts\":[{\"id\":0,\"position\":{\"x\":840,\"y\":90,\"z\":5000,\"width\":190,\"height\":105}}],\"singleVisual\":{\"visualType\":\"card\",\"projections\":{\"Values\":[{\"queryRef\":\"_Measures.Cancellation Rate\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"_Measures\",\"Entity\":\"_Measures\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_Measures\"}},\"Property\":\"Cancellation Rate\"},\"Name\":\"_Measures.Cancellation Rate\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"labels\":[{\"properties\":{\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"24D\"}}}}}]}}}",
+          "height": 105.00,
+          "width": 190.00,
+          "x": 840.00,
+          "y": 90.00,
+          "z": 5000.00
+        },
+        {
+          "config": "{\"name\":\"KpiGMV\",\"layouts\":[{\"id\":0,\"position\":{\"x\":20,\"y\":90,\"z\":1000,\"width\":190,\"height\":105}}],\"singleVisual\":{\"visualType\":\"card\",\"projections\":{\"Values\":[{\"queryRef\":\"_Measures.Total GMV\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"_Measures\",\"Entity\":\"_Measures\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_Measures\"}},\"Property\":\"Total GMV\"},\"Name\":\"_Measures.Total GMV\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"labels\":[{\"properties\":{\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"24D\"}}},\"labelDisplayUnits\":{\"expr\":{\"Literal\":{\"Value\":\"1000000D\"}}},\"labelPrecision\":{\"expr\":{\"Literal\":{\"Value\":\"2D\"}}}}}]}}}",
+          "height": 105.00,
+          "width": 190.00,
+          "x": 20.00,
+          "y": 90.00,
+          "z": 1000.00
+        },
+        {
+          "config": "{\"name\":\"KpiOTDR\",\"layouts\":[{\"id\":0,\"position\":{\"x\":635,\"y\":90,\"z\":4000,\"width\":190,\"height\":105}}],\"singleVisual\":{\"visualType\":\"card\",\"projections\":{\"Values\":[{\"queryRef\":\"_Measures.On-Time Delivery Rate\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"_Measures\",\"Entity\":\"_Measures\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_Measures\"}},\"Property\":\"On-Time Delivery Rate\"},\"Name\":\"_Measures.On-Time Delivery Rate\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"labels\":[{\"properties\":{\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"24D\"}}}}}]}}}",
+          "height": 105.00,
+          "width": 190.00,
+          "x": 635.00,
+          "y": 90.00,
+          "z": 4000.00
+        },
+        {
+          "config": "{\"name\":\"KpiOrders\",\"layouts\":[{\"id\":0,\"position\":{\"x\":225,\"y\":90,\"z\":2000,\"width\":190,\"height\":105}}],\"singleVisual\":{\"visualType\":\"card\",\"projections\":{\"Values\":[{\"queryRef\":\"_Measures.Delivered Orders\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"_Measures\",\"Entity\":\"_Measures\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_Measures\"}},\"Property\":\"Delivered Orders\"},\"Name\":\"_Measures.Delivered Orders\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"labels\":[{\"properties\":{\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"24D\"}}}}}]}}}",
+          "height": 105.00,
+          "width": 190.00,
+          "x": 225.00,
+          "y": 90.00,
+          "z": 2000.00
+        },
+        {
+          "config": "{\"name\":\"KpiUnavailRate\",\"layouts\":[{\"id\":0,\"position\":{\"x\":1045,\"y\":90,\"z\":6000,\"width\":215,\"height\":105}}],\"singleVisual\":{\"visualType\":\"card\",\"projections\":{\"Values\":[{\"queryRef\":\"_Measures.Unavailable Order Rate\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"_Measures\",\"Entity\":\"_Measures\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_Measures\"}},\"Property\":\"Unavailable Order Rate\"},\"Name\":\"_Measures.Unavailable Order Rate\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"labels\":[{\"properties\":{\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"24D\"}}}}}]}}}",
+          "height": 105.00,
+          "width": 215.00,
+          "x": 1045.00,
+          "y": 90.00,
+          "z": 6000.00
+        },
+        {
+          "config": "{\"name\":\"MonthlyGMVTrendChart\",\"layouts\":[{\"id\":0,\"position\":{\"x\":20,\"y\":210,\"z\":7000,\"width\":780,\"height\":310}}],\"singleVisual\":{\"visualType\":\"lineStackedColumnComboChart\",\"projections\":{\"Category\":[{\"queryRef\":\"DimDate.month_year\",\"active\":true}],\"Y\":[{\"queryRef\":\"_Measures.Total GMV\"}],\"Y2\":[{\"queryRef\":\"_Measures.On-Time Delivery Rate\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"DimDate\",\"Entity\":\"DimDate\",\"Type\":0},{\"Name\":\"_Measures\",\"Entity\":\"_Measures\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"DimDate\"}},\"Property\":\"month_year\"},\"Name\":\"DimDate.month_year\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_Measures\"}},\"Property\":\"Total GMV\"},\"Name\":\"_Measures.Total GMV\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_Measures\"}},\"Property\":\"On-Time Delivery Rate\"},\"Name\":\"_Measures.On-Time Delivery Rate\"}]},\"columnProperties\":{\"DimDate.month_year\":{\"displayName\":\"Month\"}},\"drillFilterOtherVisuals\":true}}",
+          "height": 310.00,
+          "width": 780.00,
+          "x": 20.00,
+          "y": 210.00,
+          "z": 7000.00
+        },
+        {
+          "config": "{\"name\":\"YearSlicer\",\"layouts\":[{\"id\":0,\"position\":{\"x\":815,\"y\":535,\"z\":10000,\"width\":215,\"height\":170}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"DimDate.year\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"DimDate\",\"Entity\":\"DimDate\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"DimDate\"}},\"Property\":\"year\"},\"Name\":\"DimDate.year\"}]},\"drillFilterOtherVisuals\":true}}",
+          "height": 170.00,
+          "width": 215.00,
+          "x": 815.00,
+          "y": 535.00,
+          "z": 10000.00
+        }
+      ],
+      "width": 1280.00
+    },
+    {
+      "config": "{}",
+      "displayName": "Logistics & SLA Operations",
+      "displayOption": 1,
+      "height": 720.00,
+      "name": "Section_Logistics_SLA_Operations",
+      "ordinal": 2,
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"DelayedCorridorsChart\",\"layouts\":[{\"id\":0,\"position\":{\"x\":20,\"y\":210,\"z\":8000,\"width\":780,\"height\":310}}],\"singleVisual\":{\"visualType\":\"columnChart\",\"projections\":{\"Category\":[{\"queryRef\":\"DimCustomers.state\",\"active\":true}],\"Y\":[{\"queryRef\":\"_Measures.Late Delivery Rate\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"DimCustomers\",\"Entity\":\"DimCustomers\",\"Type\":0},{\"Name\":\"_Measures\",\"Entity\":\"_Measures\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"DimCustomers\"}},\"Property\":\"state\"},\"Name\":\"DimCustomers.state\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_Measures\"}},\"Property\":\"Late Delivery Rate\"},\"Name\":\"_Measures.Late Delivery Rate\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_Measures\"}},\"Property\":\"Late Delivery Rate\"}}}]},\"columnProperties\":{\"DimCustomers.state\":{\"displayName\":\"Customer State\"}},\"drillFilterOtherVisuals\":true}}",
+          "height": 310.00,
+          "width": 780.00,
+          "x": 20.00,
+          "y": 210.00,
+          "z": 8000.00
+        },
+        {
+          "config": "{\"name\":\"HeaderCard3\",\"layouts\":[{\"id\":0,\"position\":{\"x\":20,\"y\":15,\"z\":0,\"width\":1240,\"height\":65}}],\"singleVisual\":{\"visualType\":\"textbox\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"paragraphs\":[{\"textRuns\":[{\"value\":\"CommerceLens AI — Logistics & SLA Operations | Delivery Lead Time Decomposition & Regional Bottlenecks\",\"textStyle\":{\"fontFamily\":\"Segoe UI Semibold\",\"fontSize\":\"16pt\",\"color\":{\"solid\":{\"color\":\"#0F172A\"}}}}]}]}}]}}}",
+          "height": 65.00,
+          "width": 1240.00,
+          "x": 20.00,
+          "y": 15.00,
+          "z": 0.00
+        },
+        {
+          "config": "{\"name\":\"KpiLDR\",\"layouts\":[{\"id\":0,\"position\":{\"x\":545,\"y\":90,\"z\":4000,\"width\":165,\"height\":105}}],\"singleVisual\":{\"visualType\":\"card\",\"projections\":{\"Values\":[{\"queryRef\":\"_Measures.Late Delivery Rate\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"_Measures\",\"Entity\":\"_Measures\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_Measures\"}},\"Property\":\"Late Delivery Rate\"},\"Name\":\"_Measures.Late Delivery Rate\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"labels\":[{\"properties\":{\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"24D\"}}}}}]}}}",
+          "height": 105.00,
+          "width": 165.00,
+          "x": 545.00,
+          "y": 90.00,
+          "z": 4000.00
+        },
+        {
+          "config": "{\"name\":\"KpiLeadTime\",\"layouts\":[{\"id\":0,\"position\":{\"x\":720,\"y\":90,\"z\":5000,\"width\":175,\"height\":105}}],\"singleVisual\":{\"visualType\":\"card\",\"projections\":{\"Values\":[{\"queryRef\":\"_Measures.Avg Delivery Lead Time (Days)\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"_Measures\",\"Entity\":\"_Measures\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_Measures\"}},\"Property\":\"Avg Delivery Lead Time (Days)\"},\"Name\":\"_Measures.Avg Delivery Lead Time (Days)\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"labels\":[{\"properties\":{\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"24D\"}}}}}]}}}",
+          "height": 105.00,
+          "width": 175.00,
+          "x": 720.00,
+          "y": 90.00,
+          "z": 5000.00
+        },
+        {
+          "config": "{\"name\":\"KpiMissingTS\",\"layouts\":[{\"id\":0,\"position\":{\"x\":195,\"y\":90,\"z\":2000,\"width\":165,\"height\":105}}],\"singleVisual\":{\"visualType\":\"card\",\"projections\":{\"Values\":[{\"queryRef\":\"_Measures.Delivered Missing Timestamp Orders\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"_Measures\",\"Entity\":\"_Measures\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_Measures\"}},\"Property\":\"Delivered Missing Timestamp Orders\"},\"Name\":\"_Measures.Delivered Missing Timestamp Orders\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"labels\":[{\"properties\":{\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"24D\"}}}}}]}}}",
+          "height": 105.00,
+          "width": 165.00,
+          "x": 195.00,
+          "y": 90.00,
+          "z": 2000.00
+        },
+        {
+          "config": "{\"name\":\"KpiOTDR_P3\",\"layouts\":[{\"id\":0,\"position\":{\"x\":370,\"y\":90,\"z\":3000,\"width\":165,\"height\":105}}],\"singleVisual\":{\"visualType\":\"card\",\"projections\":{\"Values\":[{\"queryRef\":\"_Measures.On-Time Delivery Rate\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"_Measures\",\"Entity\":\"_Measures\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_Measures\"}},\"Property\":\"On-Time Delivery Rate\"},\"Name\":\"_Measures.On-Time Delivery Rate\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"labels\":[{\"properties\":{\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"24D\"}}}}}]}}}",
+          "height": 105.00,
+          "width": 165.00,
+          "x": 370.00,
+          "y": 90.00,
+          "z": 3000.00
+        },
+        {
+          "config": "{\"name\":\"KpiSLAEligible\",\"layouts\":[{\"id\":0,\"position\":{\"x\":20,\"y\":90,\"z\":1000,\"width\":165,\"height\":105}}],\"singleVisual\":{\"visualType\":\"card\",\"projections\":{\"Values\":[{\"queryRef\":\"_Measures.SLA-Eligible Orders\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"_Measures\",\"Entity\":\"_Measures\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_Measures\"}},\"Property\":\"SLA-Eligible Orders\"},\"Name\":\"_Measures.SLA-Eligible Orders\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"labels\":[{\"properties\":{\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"24D\"}}}}}]}}}",
+          "height": 105.00,
+          "width": 165.00,
+          "x": 20.00,
+          "y": 90.00,
+          "z": 1000.00
+        },
+        {
+          "config": "{\"name\":\"KpiSellerLead\",\"layouts\":[{\"id\":0,\"position\":{\"x\":1090,\"y\":90,\"z\":7000,\"width\":170,\"height\":105}}],\"singleVisual\":{\"visualType\":\"card\",\"projections\":{\"Values\":[{\"queryRef\":\"_Measures.Avg Seller Dispatch (Days)\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"_Measures\",\"Entity\":\"_Measures\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_Measures\"}},\"Property\":\"Avg Seller Dispatch (Days)\"},\"Name\":\"_Measures.Avg Seller Dispatch (Days)\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"labels\":[{\"properties\":{\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"24D\"}}}}}]}}}",
+          "height": 105.00,
+          "width": 170.00,
+          "x": 1090.00,
+          "y": 90.00,
+          "z": 7000.00
+        },
+        {
+          "config": "{\"name\":\"KpiTransitTime\",\"layouts\":[{\"id\":0,\"position\":{\"x\":905,\"y\":90,\"z\":6000,\"width\":175,\"height\":105}}],\"singleVisual\":{\"visualType\":\"card\",\"projections\":{\"Values\":[{\"queryRef\":\"_Measures.Avg Carrier Transit (Days)\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"_Measures\",\"Entity\":\"_Measures\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_Measures\"}},\"Property\":\"Avg Carrier Transit (Days)\"},\"Name\":\"_Measures.Avg Carrier Transit (Days)\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"labels\":[{\"properties\":{\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"24D\"}}}}}]}}}",
+          "height": 105.00,
+          "width": 175.00,
+          "x": 905.00,
+          "y": 90.00,
+          "z": 6000.00
+        },
+        {
+          "config": "{\"name\":\"LeadTimeBreakdownChart\",\"layouts\":[{\"id\":0,\"position\":{\"x\":815,\"y\":210,\"z\":9000,\"width\":445,\"height\":310}}],\"singleVisual\":{\"visualType\":\"lineStackedColumnComboChart\",\"projections\":{\"Category\":[{\"queryRef\":\"DimDate.month_year\",\"active\":true}],\"Y\":[{\"queryRef\":\"_Measures.Avg Carrier Transit (Days)\"}],\"Y2\":[{\"queryRef\":\"_Measures.Avg Seller Dispatch (Days)\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"DimDate\",\"Entity\":\"DimDate\",\"Type\":0},{\"Name\":\"_Measures\",\"Entity\":\"_Measures\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"DimDate\"}},\"Property\":\"month_year\"},\"Name\":\"DimDate.month_year\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_Measures\"}},\"Property\":\"Avg Carrier Transit (Days)\"},\"Name\":\"_Measures.Avg Carrier Transit (Days)\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_Measures\"}},\"Property\":\"Avg Seller Dispatch (Days)\"},\"Name\":\"_Measures.Avg Seller Dispatch (Days)\"}]},\"columnProperties\":{\"DimDate.month_year\":{\"displayName\":\"Month\"}},\"drillFilterOtherVisuals\":true}}",
+          "height": 310.00,
+          "width": 445.00,
+          "x": 815.00,
+          "y": 210.00,
+          "z": 9000.00
+        },
+        {
+          "config": "{\"name\":\"SLABufferMatrixTable\",\"layouts\":[{\"id\":0,\"position\":{\"x\":20,\"y\":535,\"z\":10000,\"width\":780,\"height\":170}}],\"singleVisual\":{\"visualType\":\"tableEx\",\"projections\":{\"Values\":[{\"queryRef\":\"DimCustomers.state\"},{\"queryRef\":\"_Measures.Delivered Orders\"},{\"queryRef\":\"_Measures.On-Time Delivery Rate\"},{\"queryRef\":\"_Measures.Avg Delivery Lead Time (Days)\"},{\"queryRef\":\"_Measures.Avg SLA Variance Buffer (Days)\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"DimCustomers\",\"Entity\":\"DimCustomers\",\"Type\":0},{\"Name\":\"_Measures\",\"Entity\":\"_Measures\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"DimCustomers\"}},\"Property\":\"state\"},\"Name\":\"DimCustomers.state\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_Measures\"}},\"Property\":\"Delivered Orders\"},\"Name\":\"_Measures.Delivered Orders\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_Measures\"}},\"Property\":\"On-Time Delivery Rate\"},\"Name\":\"_Measures.On-Time Delivery Rate\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_Measures\"}},\"Property\":\"Avg Delivery Lead Time (Days)\"},\"Name\":\"_Measures.Avg Delivery Lead Time (Days)\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_Measures\"}},\"Property\":\"Avg SLA Variance Buffer (Days)\"},\"Name\":\"_Measures.Avg SLA Variance Buffer (Days)\"}]},\"columnProperties\":{\"DimCustomers.state\":{\"displayName\":\"Customer State\"}},\"drillFilterOtherVisuals\":true}}",
+          "height": 170.00,
+          "width": 780.00,
+          "x": 20.00,
+          "y": 535.00,
+          "z": 10000.00
+        },
+        {
+          "config": "{\"name\":\"TimelinessSlicer\",\"layouts\":[{\"id\":0,\"position\":{\"x\":815,\"y\":535,\"z\":11000,\"width\":445,\"height\":170}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"FactOrders.is_late\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"FactOrders\",\"Entity\":\"FactOrders\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"FactOrders\"}},\"Property\":\"is_late\"},\"Name\":\"FactOrders.is_late\"}]},\"columnProperties\":{\"FactOrders.is_late\":{\"displayName\":\"Delivery Timeliness\"}},\"drillFilterOtherVisuals\":true}}",
+          "height": 170.00,
+          "width": 445.00,
+          "x": 815.00,
+          "y": 535.00,
+          "z": 11000.00
+        }
+      ],
+      "width": 1280.00
+    },
+    {
+      "config": "{}",
+      "displayName": "Sales & Category Diagnostics",
+      "displayOption": 1,
+      "height": 720.00,
+      "name": "Section_Sales_Category_Diagnostics",
+      "ordinal": 1,
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"CategoryParetoChart\",\"layouts\":[{\"id\":0,\"position\":{\"x\":20,\"y\":210,\"z\":6000,\"width\":800,\"height\":310}}],\"singleVisual\":{\"visualType\":\"lineStackedColumnComboChart\",\"projections\":{\"Category\":[{\"queryRef\":\"DimProducts.category_name_english\",\"active\":true}],\"Y\":[{\"queryRef\":\"_Measures.Total GMV\"}],\"Y2\":[{\"queryRef\":\"_Measures.Pareto Cumulative GMV %\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"DimProducts\",\"Entity\":\"DimProducts\",\"Type\":0},{\"Name\":\"_Measures\",\"Entity\":\"_Measures\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"DimProducts\"}},\"Property\":\"category_name_english\"},\"Name\":\"DimProducts.category_name_english\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_Measures\"}},\"Property\":\"Total GMV\"},\"Name\":\"_Measures.Total GMV\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_Measures\"}},\"Property\":\"Pareto Cumulative GMV %\"},\"Name\":\"_Measures.Pareto Cumulative GMV %\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_Measures\"}},\"Property\":\"Total GMV\"}}}]},\"columnProperties\":{\"DimProducts.category_name_english\":{\"displayName\":\"Category\"}},\"drillFilterOtherVisuals\":true}}",
+          "height": 310.00,
+          "width": 800.00,
+          "x": 20.00,
+          "y": 210.00,
+          "z": 6000.00
+        },
+        {
+          "config": "{\"name\":\"CategoryPerformanceTable\",\"layouts\":[{\"id\":0,\"position\":{\"x\":20,\"y\":535,\"z\":8000,\"width\":800,\"height\":170}}],\"singleVisual\":{\"visualType\":\"tableEx\",\"projections\":{\"Values\":[{\"queryRef\":\"DimProducts.category_name_english\"},{\"queryRef\":\"_Measures.Total GMV\"},{\"queryRef\":\"_Measures.Delivered Orders (Category)\"},{\"queryRef\":\"_Measures.Freight to Merchandise Ratio\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"DimProducts\",\"Entity\":\"DimProducts\",\"Type\":0},{\"Name\":\"_Measures\",\"Entity\":\"_Measures\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"DimProducts\"}},\"Property\":\"category_name_english\"},\"Name\":\"DimProducts.category_name_english\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_Measures\"}},\"Property\":\"Total GMV\"},\"Name\":\"_Measures.Total GMV\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_Measures\"}},\"Property\":\"Delivered Orders (Category)\"},\"Name\":\"_Measures.Delivered Orders (Category)\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_Measures\"}},\"Property\":\"Freight to Merchandise Ratio\"},\"Name\":\"_Measures.Freight to Merchandise Ratio\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_Measures\"}},\"Property\":\"Total GMV\"}}}]},\"columnProperties\":{\"DimProducts.category_name_english\":{\"displayName\":\"Category\"}},\"drillFilterOtherVisuals\":true}}",
+          "height": 170.00,
+          "width": 800.00,
+          "x": 20.00,
+          "y": 535.00,
+          "z": 8000.00
+        },
+        {
+          "config": "{\"name\":\"CategorySlicer\",\"layouts\":[{\"id\":0,\"position\":{\"x\":835,\"y\":535,\"z\":9000,\"width\":425,\"height\":170}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"DimProducts.category_name_english\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"DimProducts\",\"Entity\":\"DimProducts\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"DimProducts\"}},\"Property\":\"category_name_english\"},\"Name\":\"DimProducts.category_name_english\"}]},\"columnProperties\":{\"DimProducts.category_name_english\":{\"displayName\":\"Category\"}},\"drillFilterOtherVisuals\":true}}",
+          "height": 170.00,
+          "width": 425.00,
+          "x": 835.00,
+          "y": 535.00,
+          "z": 9000.00
+        },
+        {
+          "config": "{\"name\":\"HeaderCard2\",\"layouts\":[{\"id\":0,\"position\":{\"x\":20,\"y\":15,\"z\":0,\"width\":1240,\"height\":65}}],\"singleVisual\":{\"visualType\":\"textbox\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"paragraphs\":[{\"textRuns\":[{\"value\":\"CommerceLens AI — Sales & Category Diagnostics | Merchandising Portfolio, Pareto 80/20 & Freight Economics\",\"textStyle\":{\"fontFamily\":\"Segoe UI Semibold\",\"fontSize\":\"16pt\",\"color\":{\"solid\":{\"color\":\"#0F172A\"}}}}]}]}}]}}}",
+          "height": 65.00,
+          "width": 1240.00,
+          "x": 20.00,
+          "y": 15.00,
+          "z": 0.00
+        },
+        {
+          "config": "{\"name\":\"KpiActiveSKUs\",\"layouts\":[{\"id\":0,\"position\":{\"x\":20,\"y\":90,\"z\":1000,\"width\":235,\"height\":105}}],\"singleVisual\":{\"visualType\":\"card\",\"projections\":{\"Values\":[{\"queryRef\":\"_Measures.Active Product SKUs\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"_Measures\",\"Entity\":\"_Measures\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_Measures\"}},\"Property\":\"Active Product SKUs\"},\"Name\":\"_Measures.Active Product SKUs\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"labels\":[{\"properties\":{\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"24D\"}}}}}]}}}",
+          "height": 105.00,
+          "width": 235.00,
+          "x": 20.00,
+          "y": 90.00,
+          "z": 1000.00
+        },
+        {
+          "config": "{\"name\":\"KpiActiveSellers\",\"layouts\":[{\"id\":0,\"position\":{\"x\":270,\"y\":90,\"z\":2000,\"width\":235,\"height\":105}}],\"singleVisual\":{\"visualType\":\"card\",\"projections\":{\"Values\":[{\"queryRef\":\"_Measures.Active Sellers\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"_Measures\",\"Entity\":\"_Measures\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_Measures\"}},\"Property\":\"Active Sellers\"},\"Name\":\"_Measures.Active Sellers\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"labels\":[{\"properties\":{\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"24D\"}}}}}]}}}",
+          "height": 105.00,
+          "width": 235.00,
+          "x": 270.00,
+          "y": 90.00,
+          "z": 2000.00
+        },
+        {
+          "config": "{\"name\":\"KpiFreightRatio\",\"layouts\":[{\"id\":0,\"position\":{\"x\":520,\"y\":90,\"z\":3000,\"width\":235,\"height\":105}}],\"singleVisual\":{\"visualType\":\"card\",\"projections\":{\"Values\":[{\"queryRef\":\"_Measures.Freight to Merchandise Ratio\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"_Measures\",\"Entity\":\"_Measures\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_Measures\"}},\"Property\":\"Freight to Merchandise Ratio\"},\"Name\":\"_Measures.Freight to Merchandise Ratio\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"labels\":[{\"properties\":{\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"24D\"}}},\"labelDisplayUnits\":{\"expr\":{\"Literal\":{\"Value\":\"1D\"}}},\"labelPrecision\":{\"expr\":{\"Literal\":{\"Value\":\"2D\"}}}}}]}}}",
+          "height": 105.00,
+          "width": 235.00,
+          "x": 520.00,
+          "y": 90.00,
+          "z": 3000.00
+        },
+        {
+          "config": "{\"name\":\"KpiItemsPerOrder\",\"layouts\":[{\"id\":0,\"position\":{\"x\":770,\"y\":90,\"z\":4000,\"width\":235,\"height\":105}}],\"singleVisual\":{\"visualType\":\"card\",\"projections\":{\"Values\":[{\"queryRef\":\"_Measures.Average Items per Order\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"_Measures\",\"Entity\":\"_Measures\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_Measures\"}},\"Property\":\"Average Items per Order\"},\"Name\":\"_Measures.Average Items per Order\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"labels\":[{\"properties\":{\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"24D\"}}},\"labelDisplayUnits\":{\"expr\":{\"Literal\":{\"Value\":\"1D\"}}},\"labelPrecision\":{\"expr\":{\"Literal\":{\"Value\":\"2D\"}}}}}]}}}",
+          "height": 105.00,
+          "width": 235.00,
+          "x": 770.00,
+          "y": 90.00,
+          "z": 4000.00
+        },
+        {
+          "config": "{\"name\":\"KpiTotalPayments\",\"layouts\":[{\"id\":0,\"position\":{\"x\":1020,\"y\":90,\"z\":5000,\"width\":240,\"height\":105}}],\"singleVisual\":{\"visualType\":\"card\",\"projections\":{\"Values\":[{\"queryRef\":\"_Measures.Total Payments Collected\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"_Measures\",\"Entity\":\"_Measures\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_Measures\"}},\"Property\":\"Total Payments Collected\"},\"Name\":\"_Measures.Total Payments Collected\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"labels\":[{\"properties\":{\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"24D\"}}},\"labelDisplayUnits\":{\"expr\":{\"Literal\":{\"Value\":\"1000000D\"}}},\"labelPrecision\":{\"expr\":{\"Literal\":{\"Value\":\"2D\"}}}}}]}}}",
+          "height": 105.00,
+          "width": 240.00,
+          "x": 1020.00,
+          "y": 90.00,
+          "z": 5000.00
+        },
+        {
+          "config": "{\"name\":\"PaymentTypeMixBar\",\"layouts\":[{\"id\":0,\"position\":{\"x\":835,\"y\":210,\"z\":7000,\"width\":425,\"height\":310}}],\"singleVisual\":{\"visualType\":\"barChart\",\"projections\":{\"Category\":[{\"queryRef\":\"FactPayments.payment_type\",\"active\":true}],\"Y\":[{\"queryRef\":\"_Measures.Total Payments Collected\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"FactPayments\",\"Entity\":\"FactPayments\",\"Type\":0},{\"Name\":\"_Measures\",\"Entity\":\"_Measures\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"FactPayments\"}},\"Property\":\"payment_type\"},\"Name\":\"FactPayments.payment_type\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_Measures\"}},\"Property\":\"Total Payments Collected\"},\"Name\":\"_Measures.Total Payments Collected\"}]},\"drillFilterOtherVisuals\":true}}",
+          "height": 310.00,
+          "width": 425.00,
+          "x": 835.00,
+          "y": 210.00,
+          "z": 7000.00
+        }
+      ],
+      "width": 1280.00
+    }
+  ]
+}

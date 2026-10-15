@@ -1,0 +1,4 @@
+split,sp_to_sp_orders,sp_to_sp_pct,sp_to_sp_late_pct,sp_to_sp_avg_sla_days,interstate_late_pct,intrastate_late_pct
+Train (Sep 16 - Apr 18),21651,30.4,5.48,18.5,10.62,5.29
+Val (May 18 - Jun 18),4540,35.3,3.44,17.9,6.01,3.4
+Test (Jul 18 - Aug 18),4531,36.2,12.58,10.9,4.06,12.35

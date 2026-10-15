@@ -173,8 +173,12 @@ CALCULATE(
     FactOrders[order_delivered_customer_date] <= FactOrders[order_estimated_delivery_date]
 )
 
--- 12. CSAT Delivery Penalty
+-- 12. CSAT Delivery Penalty (Evaluates to -1.72 stars drop)
 CSAT Delivery Penalty = 
+[Late Order CSAT] - [On-Time Order CSAT]
+
+-- 12b. CSAT Timeliness Gap (Evaluates to +1.72 stars positive premium)
+CSAT Timeliness Gap =
 [On-Time Order CSAT] - [Late Order CSAT]
 
 -- 13. Pareto Cumulative GMV Percentage

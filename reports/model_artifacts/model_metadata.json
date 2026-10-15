@@ -1,0 +1,56 @@
+{
+  "model_type": "logistic_regression",
+  "hyperparameters": {
+    "C": 0.1,
+    "class_weight": "balanced",
+    "random_state": 42
+  },
+  "training_timestamp_utc": "2026-10-11T06:32:47.695198",
+  "operational_threshold": 0.72,
+  "default_threshold": 0.5,
+  "split_summary": {
+    "total_observations": 96470,
+    "train": {
+      "n": 71118,
+      "pct": 73.72,
+      "start": "2016-09-15 12:16:38",
+      "end": "2018-04-30 23:47:26",
+      "late_count": 6251,
+      "late_rate_pct": 8.79
+    },
+    "validation": {
+      "n": 12845,
+      "pct": 13.32,
+      "start": "2018-05-01 00:02:11",
+      "end": "2018-06-30 23:59:49",
+      "late_count": 639,
+      "late_rate_pct": 4.97
+    },
+    "test": {
+      "n": 12507,
+      "pct": 12.96,
+      "start": "2018-07-01 00:25:07",
+      "end": "2018-08-29 15:00:37",
+      "late_count": 936,
+      "late_rate_pct": 7.48
+    }
+  },
+  "top_categories": [
+    "bed_bath_table",
+    "sports_leisure",
+    "health_beauty",
+    "computers_accessories",
+    "furniture_decor",
+    "housewares",
+    "watches_gifts",
+    "telephony",
+    "toys",
+    "cool_stuff",
+    "garden_tools",
+    "auto",
+    "perfumery",
+    "baby",
+    "electronics"
+  ],
+  "causality_disclaimer": "STATISTICAL GOVERNANCE NOTICE: Feature contributions and odds ratios quantify observational statistical associations with late delivery under historical Correios/Olist operating conditions. They DO NOT establish causal mechanisms. For example, high freight ratios or extended SLA promises reflect inter-state transit difficulty and postal logistics pricing, not that charging more freight causes parcels to arrive late. Stakeholders must treat model outputs as risk indicators for operational monitoring, not guarantees or causal levers."
+}

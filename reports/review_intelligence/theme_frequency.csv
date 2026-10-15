@@ -1,0 +1,16 @@
+theme_id,occurrence_count,primary_theme_count,prevalence_percentage
+positive_product_experience,63,45,47.73
+unclear,57,56,43.18
+positive_delivery_experience,35,28,26.52
+delivery_delay,13,12,9.85
+poor_product_quality,5,3,3.79
+damaged_or_defective_product,5,4,3.79
+missing_or_wrong_item,4,4,3.03
+positive_seller_experience,4,0,3.03
+payment_or_pricing,4,2,3.03
+product_not_as_described,3,2,2.27
+return_or_refund,2,1,1.52
+other,2,1,1.52
+packaging_issue,2,1,1.52
+seller_communication,1,0,0.76
+delivery_tracking,1,1,0.76

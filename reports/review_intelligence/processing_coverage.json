@@ -1,0 +1,12 @@
+{
+  "total_source_reviews": 99224,
+  "distinct_compound_keys": 99224,
+  "reviews_with_text": 42697,
+  "reviews_without_text": 56527,
+  "processed_completed": 132,
+  "processed_failed": 28,
+  "processed_unclear": 0,
+  "total_processed": 160,
+  "coverage_percentage_of_text_reviews": 0.37,
+  "coverage_percentage_of_all_reviews": 0.16
+}

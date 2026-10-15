@@ -1,0 +1,263 @@
+{
+  "candidate_key_validation": [
+    {
+      "table_name": "orders",
+      "candidate_key": [
+        "order_id"
+      ],
+      "total_rows": 99441,
+      "distinct_key_count": 99441,
+      "duplicate_key_groups": 0,
+      "excess_duplicate_rows": 0,
+      "duplicate_key_count": 0,
+      "null_key_count": 0,
+      "is_valid_pk": true,
+      "notes": null
+    },
+    {
+      "table_name": "order_items",
+      "candidate_key": [
+        "order_id",
+        "order_item_id"
+      ],
+      "total_rows": 112650,
+      "distinct_key_count": 112650,
+      "duplicate_key_groups": 0,
+      "excess_duplicate_rows": 0,
+      "duplicate_key_count": 0,
+      "null_key_count": 0,
+      "is_valid_pk": true,
+      "notes": null
+    },
+    {
+      "table_name": "order_payments",
+      "candidate_key": [
+        "order_id",
+        "payment_sequential"
+      ],
+      "total_rows": 103886,
+      "distinct_key_count": 103886,
+      "duplicate_key_groups": 0,
+      "excess_duplicate_rows": 0,
+      "duplicate_key_count": 0,
+      "null_key_count": 0,
+      "is_valid_pk": true,
+      "notes": null
+    },
+    {
+      "table_name": "order_reviews",
+      "candidate_key": [
+        "review_id"
+      ],
+      "total_rows": 99224,
+      "distinct_key_count": 98410,
+      "duplicate_key_groups": 789,
+      "excess_duplicate_rows": 814,
+      "duplicate_key_count": 789,
+      "null_key_count": 0,
+      "is_valid_pk": false,
+      "notes": "Key failed validation: 789 duplicate key groups (814 excess rows), 0 null rows."
+    },
+    {
+      "table_name": "customers",
+      "candidate_key": [
+        "customer_id"
+      ],
+      "total_rows": 99441,
+      "distinct_key_count": 99441,
+      "duplicate_key_groups": 0,
+      "excess_duplicate_rows": 0,
+      "duplicate_key_count": 0,
+      "null_key_count": 0,
+      "is_valid_pk": true,
+      "notes": null
+    },
+    {
+      "table_name": "sellers",
+      "candidate_key": [
+        "seller_id"
+      ],
+      "total_rows": 3095,
+      "distinct_key_count": 3095,
+      "duplicate_key_groups": 0,
+      "excess_duplicate_rows": 0,
+      "duplicate_key_count": 0,
+      "null_key_count": 0,
+      "is_valid_pk": true,
+      "notes": null
+    },
+    {
+      "table_name": "products",
+      "candidate_key": [
+        "product_id"
+      ],
+      "total_rows": 32951,
+      "distinct_key_count": 32951,
+      "duplicate_key_groups": 0,
+      "excess_duplicate_rows": 0,
+      "duplicate_key_count": 0,
+      "null_key_count": 0,
+      "is_valid_pk": true,
+      "notes": null
+    },
+    {
+      "table_name": "geolocation",
+      "candidate_key": [
+        "geolocation_zip_code_prefix",
+        "geolocation_lat",
+        "geolocation_lng"
+      ],
+      "total_rows": 1000163,
+      "distinct_key_count": 720154,
+      "duplicate_key_groups": 131707,
+      "excess_duplicate_rows": 280009,
+      "duplicate_key_count": 131707,
+      "null_key_count": 0,
+      "is_valid_pk": false,
+      "notes": "Key failed validation: 131,707 duplicate key groups (280,009 excess rows), 0 null rows."
+    },
+    {
+      "table_name": "category_translation",
+      "candidate_key": [
+        "product_category_name"
+      ],
+      "total_rows": 71,
+      "distinct_key_count": 71,
+      "duplicate_key_groups": 0,
+      "excess_duplicate_rows": 0,
+      "duplicate_key_count": 0,
+      "null_key_count": 0,
+      "is_valid_pk": true,
+      "notes": null
+    },
+    {
+      "table_name": "customers",
+      "candidate_key": [
+        "customer_unique_id"
+      ],
+      "total_rows": 99441,
+      "distinct_key_count": 96096,
+      "duplicate_key_groups": 2997,
+      "excess_duplicate_rows": 3345,
+      "duplicate_key_count": 2997,
+      "null_key_count": 0,
+      "is_valid_pk": false,
+      "notes": "Expected: customer_unique_id represents repeat buyers and is NOT a unique PK per order record."
+    },
+    {
+      "table_name": "order_reviews",
+      "candidate_key": [
+        "review_id",
+        "order_id"
+      ],
+      "total_rows": 99224,
+      "distinct_key_count": 99224,
+      "duplicate_key_groups": 0,
+      "excess_duplicate_rows": 0,
+      "duplicate_key_count": 0,
+      "null_key_count": 0,
+      "is_valid_pk": true,
+      "notes": "Compound candidate key for reviews. 100% unique across all review records."
+    }
+  ],
+  "relationship_validation": [
+    {
+      "relationship_name": "order_items_to_orders",
+      "child_table": "order_items",
+      "child_col": "order_id",
+      "parent_table": "orders",
+      "parent_col": "order_id",
+      "child_total_records": 112650,
+      "child_null_records": 0,
+      "child_distinct_keys": 98666,
+      "unmatched_child_records": 0,
+      "unmatched_child_keys": 0,
+      "referential_integrity_percentage": 100.0,
+      "is_clean": true
+    },
+    {
+      "relationship_name": "order_items_to_products",
+      "child_table": "order_items",
+      "child_col": "product_id",
+      "parent_table": "products",
+      "parent_col": "product_id",
+      "child_total_records": 112650,
+      "child_null_records": 0,
+      "child_distinct_keys": 32951,
+      "unmatched_child_records": 0,
+      "unmatched_child_keys": 0,
+      "referential_integrity_percentage": 100.0,
+      "is_clean": true
+    },
+    {
+      "relationship_name": "order_items_to_sellers",
+      "child_table": "order_items",
+      "child_col": "seller_id",
+      "parent_table": "sellers",
+      "parent_col": "seller_id",
+      "child_total_records": 112650,
+      "child_null_records": 0,
+      "child_distinct_keys": 3095,
+      "unmatched_child_records": 0,
+      "unmatched_child_keys": 0,
+      "referential_integrity_percentage": 100.0,
+      "is_clean": true
+    },
+    {
+      "relationship_name": "order_payments_to_orders",
+      "child_table": "order_payments",
+      "child_col": "order_id",
+      "parent_table": "orders",
+      "parent_col": "order_id",
+      "child_total_records": 103886,
+      "child_null_records": 0,
+      "child_distinct_keys": 99440,
+      "unmatched_child_records": 0,
+      "unmatched_child_keys": 0,
+      "referential_integrity_percentage": 100.0,
+      "is_clean": true
+    },
+    {
+      "relationship_name": "order_reviews_to_orders",
+      "child_table": "order_reviews",
+      "child_col": "order_id",
+      "parent_table": "orders",
+      "parent_col": "order_id",
+      "child_total_records": 99224,
+      "child_null_records": 0,
+      "child_distinct_keys": 98673,
+      "unmatched_child_records": 0,
+      "unmatched_child_keys": 0,
+      "referential_integrity_percentage": 100.0,
+      "is_clean": true
+    },
+    {
+      "relationship_name": "orders_to_customers",
+      "child_table": "orders",
+      "child_col": "customer_id",
+      "parent_table": "customers",
+      "parent_col": "customer_id",
+      "child_total_records": 99441,
+      "child_null_records": 0,
+      "child_distinct_keys": 99441,
+      "unmatched_child_records": 0,
+      "unmatched_child_keys": 0,
+      "referential_integrity_percentage": 100.0,
+      "is_clean": true
+    },
+    {
+      "relationship_name": "products_to_category_translation",
+      "child_table": "products",
+      "child_col": "product_category_name",
+      "parent_table": "category_translation",
+      "parent_col": "product_category_name",
+      "child_total_records": 32951,
+      "child_null_records": 610,
+      "child_distinct_keys": 73,
+      "unmatched_child_records": 13,
+      "unmatched_child_keys": 2,
+      "referential_integrity_percentage": 98.1093,
+      "is_clean": false
+    }
+  ]
+}

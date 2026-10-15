@@ -1,0 +1,52 @@
+[
+  {
+    "finding_id": "ORD_STAT_01",
+    "table_name": "orders",
+    "column_name": "order_delivered_customer_date",
+    "severity": "CANDIDATE_INVESTIGATION",
+    "title": "Delivered Status with Missing Delivery Timestamp",
+    "evidence": "8 orders marked as 'delivered' have a NULL order_delivered_customer_date. Accounts for 8 of 2,965 total missing delivery timestamps.",
+    "recommended_action": "Do not compute lead times on these orders; investigate whether delivery confirmation was omitted.",
+    "is_safe_to_clean": false
+  },
+  {
+    "finding_id": "ORD_STAT_02",
+    "table_name": "orders",
+    "column_name": "order_delivered_customer_date",
+    "severity": "EXPECTED_CHARACTERISTIC",
+    "title": "Non-Delivered Orders with Null Delivery Dates",
+    "evidence": "2,957 orders across all non-delivered statuses naturally have NULL delivery dates (shipped=1,107, canceled=619, unavailable=609, invoiced=314, processing=301, created=5, approved=2). Fully reconciles all missing values: 8 delivered + 2,957 non-delivered = 2,965 total missing.",
+    "recommended_action": "Filter order_status = 'delivered' before running logistics lead-time analyses.",
+    "is_safe_to_clean": true
+  },
+  {
+    "finding_id": "PAY_VAL_02",
+    "table_name": "order_payments",
+    "column_name": "payment_value",
+    "severity": "CANDIDATE_INVESTIGATION",
+    "title": "Zero Value Payment Slices",
+    "evidence": "9 payments have payment_value = 0.00 (likely 100% voucher applied).",
+    "recommended_action": "Retain vouchers while auditing full voucher discount reconciliation.",
+    "is_safe_to_clean": false
+  },
+  {
+    "finding_id": "GEO_BOUND_01",
+    "table_name": "geolocation",
+    "column_name": "geolocation_lat",
+    "severity": "CANDIDATE_INVESTIGATION",
+    "title": "Coordinates Outside Brazilian Geographic Bounding Box",
+    "evidence": "40 coordinate records fall outside continental Brazil coordinates.",
+    "recommended_action": "Filter coordinates before spatial distance calculations or compute median centroid per zip prefix.",
+    "is_safe_to_clean": false
+  },
+  {
+    "finding_id": "PROD_CAT_01",
+    "table_name": "products",
+    "column_name": "product_category_name",
+    "severity": "CONFIRMED_ISSUE",
+    "title": "Product Category Translation Mapping Gaps",
+    "evidence": "610 products have NULL product_category_name. 13 products have non-null categories lacking an English translation across 2 distinct categories: 'portateis_cozinha_e_preparadores_de_alimentos' (10 products), 'pc_gamer' (3 products).",
+    "recommended_action": "Do not invent placeholder categories or discard records. In Phase 2 DDL/reporting, leave English category as NULL or map 'pc_gamer' -> 'pc_gamer' and 'portateis_cozinha_e_preparadores_de_alimentos' -> 'portable_kitchen_food_preparers'.",
+    "is_safe_to_clean": false
+  }
+]

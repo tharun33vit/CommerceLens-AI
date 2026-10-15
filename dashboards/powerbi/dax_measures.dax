@@ -1,0 +1,738 @@
+/* ==============================================================================
+   CommerceLens AI — Enterprise DAX Measure Library
+   Target: Power BI Reporting Suite (.pbip)
+   Data Model: Kimball Star Schema connected to PostgreSQL (commercelens_db)
+   Currency: Brazilian Reais (R$)
+   Governance: Strict Anti-Fan-Out & Validated SLA Denominator (96,470 orders)
+   ============================================================================== */
+
+// ==============================================================================
+// 1. EXECUTIVE & FINANCIAL KPIS (GMV, AOV, FREIGHT, REVENUE)
+// ==============================================================================
+
+/// <summary>
+/// Total Gross Merchandise Value (GMV) for successfully delivered orders.
+/// Explicitly measures delivered item sales volume (excluding cancellations/stockouts).
+/// </summary>
+Total GMV = 
+CALCULATE(
+    SUM(FactOrderItems[price]),
+    FactOrders[order_status] = "delivered"
+)
+/* FormatString: "R$ " #,##0.00 */
+
+/// <summary>
+/// Gross Item Merchandise Value across all transacted catalog items regardless of status.
+/// Audited reconciliation base matching SUM(FactOrderItems[price]).
+/// </summary>
+Total Merchandise Value (All Items) = 
+SUM(FactOrderItems[price])
+/* FormatString: "R$ " #,##0.00 */
+
+/// <summary>
+/// Total freight spend collected on successfully delivered orders.
+/// </summary>
+Total Freight = 
+CALCULATE(
+    SUM(FactOrderItems[freight_value]),
+    FactOrders[order_status] = "delivered"
+)
+/* FormatString: "R$ " #,##0.00 */
+
+/// <summary>
+/// Average Order Value (AOV) defined as Delivered GMV divided by Distinct Delivered Orders.
+/// Denominator: 96,478 delivered orders.
+/// </summary>
+Average Order Value (AOV) = 
+DIVIDE(
+    [Total GMV],
+    [Delivered Orders],
+    BLANK()
+)
+/* FormatString: "R$ " #,##0.00 */
+
+/// <summary>
+/// Ratio of logistics shipping fees to product price on delivered orders.
+/// Evaluates freight friction across states and categories.
+/// </summary>
+Freight to Merchandise Ratio = 
+DIVIDE(
+    [Total Freight],
+    [Total GMV],
+    BLANK()
+)
+/* FormatString: 0.00% */
+
+/// <summary>
+/// Total gross cash payments collected across all payment slices and methods.
+/// Reconciles against sum of item prices and freight fees.
+/// </summary>
+Total Payments Collected = 
+SUM(FactPayments[payment_value])
+/* FormatString: "R$ " #,##0.00 */
+
+/// <summary>
+/// Month-over-Month GMV Growth Rate comparing current month delivered GMV
+/// to previous month using time intelligence.
+/// </summary>
+GMV MoM Growth % = 
+VAR CurrentGMV = [Total GMV]
+VAR PreviousMonthGMV = 
+    CALCULATE(
+        [Total GMV],
+        DATEADD(DimDate[full_date], -1, MONTH)
+    )
+RETURN
+DIVIDE(
+    CurrentGMV - PreviousMonthGMV,
+    PreviousMonthGMV,
+    BLANK()
+)
+/* FormatString: +0.00%;-0.00%;0.00% */
+
+
+// ==============================================================================
+// 2. ORDER VOLUMES & STATUS BREAKDOWN
+// ==============================================================================
+
+/// <summary>
+/// Distinct count of all order transactions placed in the marketplace.
+/// Grain-safe distinct count preventing line-item inflation.
+/// </summary>
+Total Orders = 
+DISTINCTCOUNT(FactOrders[order_id])
+/* FormatString: #,##0 */
+
+/// <summary>
+/// Distinct count of successfully delivered orders.
+/// </summary>
+Delivered Orders = 
+CALCULATE(
+    [Total Orders],
+    FactOrders[order_status] = "delivered"
+)
+/* FormatString: #,##0 */
+
+/// <summary>
+/// Distinct count of canceled orders (buyer or seller remorse cancellation).
+/// </summary>
+Canceled Orders = 
+CALCULATE(
+    [Total Orders],
+    FactOrders[order_status] = "canceled"
+)
+/* FormatString: #,##0 */
+
+/// <summary>
+/// Cancellation Rate as percentage of total placed orders.
+/// </summary>
+Cancellation Rate = 
+DIVIDE(
+    [Canceled Orders],
+    [Total Orders],
+    BLANK()
+)
+/* FormatString: 0.00% */
+
+/// <summary>
+/// Distinct count of orders flagged as unavailable (seller stockout / fulfillment failure).
+/// Tracked separately from cancellations per marketplace governance.
+/// </summary>
+Unavailable Orders = 
+CALCULATE(
+    [Total Orders],
+    FactOrders[order_status] = "unavailable"
+)
+/* FormatString: #,##0 */
+
+/// <summary>
+/// Unavailable Order Rate as percentage of total placed orders.
+/// </summary>
+Unavailable Order Rate = 
+DIVIDE(
+    [Unavailable Orders],
+    [Total Orders],
+    BLANK()
+)
+/* FormatString: 0.00% */
+
+/// <summary>
+/// Distinct count of active orders currently in fulfillment pipeline (shipped, invoiced, processing).
+/// </summary>
+In-Transit Orders = 
+CALCULATE(
+    [Total Orders],
+    FactOrders[order_status] IN {"shipped", "invoiced", "processing", "approved", "created"}
+)
+/* FormatString: #,##0 */
+
+
+// ==============================================================================
+// 3. LOGISTICS & SLA OPERATIONS (CORREIOS FULFILLMENT & LEAD TIMES)
+// ==============================================================================
+
+/// <summary>
+/// Strictly eligible delivered orders for SLA compliance calculation.
+/// Explicitly excludes the 8 delivered orders missing customer delivery timestamps (96,478 - 8 = 96,470).
+/// This serves as the verified denominator for On-Time Delivery Rate.
+/// </summary>
+SLA-Eligible Orders = 
+CALCULATE(
+    [Total Orders],
+    FactOrders[is_eligible_for_sla] = TRUE()
+)
+/* FormatString: #,##0 */
+
+/// <summary>
+/// Exactly 8 delivered orders missing order_delivered_customer_date.
+/// Reported separately to ensure audit compliance and prevent denominator corruption.
+/// </summary>
+Delivered Missing Timestamp Orders = 
+CALCULATE(
+    [Total Orders],
+    FactOrders[order_status] = "delivered",
+    ISBLANK(FactOrders[order_delivered_customer_date])
+)
+/* FormatString: #,##0 */
+
+/// <summary>
+/// Delivered orders arriving on or before the promised estimated SLA date.
+/// Numerator for On-Time Delivery Rate (88,644 orders).
+/// </summary>
+On-Time Orders = 
+CALCULATE(
+    [Total Orders],
+    FactOrders[is_eligible_for_sla] = TRUE(),
+    FactOrders[is_late] = FALSE()
+)
+/* FormatString: #,##0 */
+
+/// <summary>
+/// Delivered orders breaching the promised estimated SLA date.
+/// Numerator for Late Delivery Rate (7,826 orders).
+/// </summary>
+Late Orders = 
+CALCULATE(
+    [Total Orders],
+    FactOrders[is_eligible_for_sla] = TRUE(),
+    FactOrders[is_late] = TRUE()
+)
+/* FormatString: #,##0 */
+
+/// <summary>
+/// On-Time Delivery Rate (OTDR) benchmarked against strict SLA-eligible population.
+/// Verified baseline: 88,644 / 96,470 = 91.89%.
+/// </summary>
+On-Time Delivery Rate = 
+DIVIDE(
+    [On-Time Orders],
+    [SLA-Eligible Orders],
+    BLANK()
+)
+/* FormatString: 0.00% */
+
+/// <summary>
+/// Late Delivery Rate (LDR) benchmarked against strict SLA-eligible population.
+/// Verified baseline: 7,826 / 96,470 = 8.11%.
+/// </summary>
+Late Delivery Rate = 
+DIVIDE(
+    [Late Orders],
+    [SLA-Eligible Orders],
+    BLANK()
+)
+/* FormatString: 0.00% */
+
+/// <summary>
+/// Average total elapsed days from order purchase checkout to customer receipt door.
+/// Computed across SLA-eligible deliveries (average: 12.56 calendar days).
+/// </summary>
+Avg Delivery Lead Time (Days) = 
+CALCULATE(
+    AVERAGE(FactOrders[delivery_lead_time_days]),
+    FactOrders[is_eligible_for_sla] = TRUE()
+)
+/* FormatString: 0.00 */
+
+/// <summary>
+/// Average elapsed carrier transit days from carrier pickup to customer receipt.
+/// Logistics carrier Correios custody duration (average: 9.33 calendar days).
+/// </summary>
+Avg Carrier Transit (Days) = 
+CALCULATE(
+    AVERAGE(FactOrders[carrier_transit_days]),
+    FactOrders[is_eligible_for_sla] = TRUE()
+)
+/* FormatString: 0.00 */
+
+/// <summary>
+/// Average merchant dispatch lead time from order approval to carrier handover.
+/// Merchant packing and logistics injection duration (average: 2.80 calendar days).
+/// </summary>
+Avg Seller Dispatch (Days) = 
+CALCULATE(
+    AVERAGE(FactOrders[seller_dispatch_days]),
+    FactOrders[is_eligible_for_sla] = TRUE()
+)
+/* FormatString: 0.00 */
+
+/// <summary>
+/// Average SLA variance buffer in days (Estimated SLA Date minus Actual Delivered Date).
+/// Positive value indicates early delivery ahead of promised deadline (average: +11.18 buffer days).
+/// </summary>
+Avg SLA Variance Buffer (Days) = 
+CALCULATE(
+    AVERAGE(FactOrders[sla_variance_days]),
+    FactOrders[is_eligible_for_sla] = TRUE()
+)
+/* FormatString: 0.00 */
+
+
+// ==============================================================================
+// 4. CUSTOMER SATISFACTION (CSAT) & REVIEW INTELLIGENCE
+// ==============================================================================
+
+/// <summary>
+/// Total submitted customer reviews across the marketplace.
+/// Compound natural key (review_id, order_id) safe count (99,224 reviews).
+/// </summary>
+Total Reviews = 
+COUNT(FactReviews[review_key])
+/* FormatString: #,##0 */
+
+/// <summary>
+/// Average customer review rating on a 1-to-5 star scale (CSAT proxy).
+/// Marketplace baseline: 4.09 stars across all submitted reviews.
+/// </summary>
+Average Review Score = 
+AVERAGE(FactReviews[review_score])
+/* FormatString: 0.00 */
+
+/// <summary>
+/// Average CSAT review score for orders delivered on schedule (OTDR cohort).
+/// Verified baseline: 4.29 stars.
+/// </summary>
+On-Time Order CSAT = 
+CALCULATE(
+    [Average Review Score],
+    FactOrders[is_eligible_for_sla] = TRUE(),
+    FactOrders[is_late] = FALSE()
+)
+/* FormatString: 0.00 */
+
+/// <summary>
+/// Average CSAT review score for orders breaching the delivery SLA (Late cohort).
+/// Verified baseline: 2.57 stars.
+/// </summary>
+Late Order CSAT = 
+CALCULATE(
+    [Average Review Score],
+    FactOrders[is_eligible_for_sla] = TRUE(),
+    FactOrders[is_late] = TRUE()
+)
+/* FormatString: 0.00 */
+
+/// <summary>
+/// Net CSAT penalty associated with delivery SLA breaches (Late Order CSAT minus On-Time Order CSAT).
+/// Evaluates to -1.73 stars based on unrounded averages (2.566 - 4.294), quantifying the net satisfaction drop tied to delivery delays.
+/// </summary>
+CSAT Delivery Penalty = 
+[Late Order CSAT] - [On-Time Order CSAT]
+/* FormatString: 0.00;-0.00;0.00 */
+
+/// <summary>
+/// CSAT Timeliness Gap between on-time and late cohorts (On-Time Order CSAT minus Late Order CSAT).
+/// Represents the positive satisfaction difference (+1.73 stars) favoring on-time deliveries.
+/// </summary>
+CSAT Timeliness Gap = 
+[On-Time Order CSAT] - [Late Order CSAT]
+/* FormatString: +0.00;-0.00;0.00 */
+
+
+/// <summary>
+/// Distinct count of negative reviews (1 star or 2 stars rating).
+/// </summary>
+Negative Reviews Count = 
+CALCULATE(
+    [Total Reviews],
+    FactReviews[review_score] IN {1, 2}
+)
+/* FormatString: #,##0 */
+
+/// <summary>
+/// Share of total submitted reviews that are negative (1 or 2 stars).
+/// </summary>
+Negative Review Share = 
+DIVIDE(
+    [Negative Reviews Count],
+    [Total Reviews],
+    BLANK()
+)
+/* FormatString: 0.00% */
+
+/// <summary>
+/// Distinct count of top-rated 5-star customer reviews.
+/// </summary>
+5-Star Reviews Count = 
+CALCULATE(
+    [Total Reviews],
+    FactReviews[review_score] = 5
+)
+/* FormatString: #,##0 */
+
+/// <summary>
+/// Share of total submitted reviews that are 5 stars.
+/// </summary>
+5-Star Review Share = 
+DIVIDE(
+    [5-Star Reviews Count],
+    [Total Reviews],
+    BLANK()
+)
+/* FormatString: 0.00% */
+
+/// <summary>
+/// Customer feedback submission rate across distinct orders placed.
+/// </summary>
+Review Response Rate = 
+DIVIDE(
+    DISTINCTCOUNT(FactReviews[order_id]),
+    [Total Orders],
+    BLANK()
+)
+/* FormatString: 0.00% */
+
+
+// ==============================================================================
+// 5. CUSTOMER RETENTION & REPEAT BUYER BEHAVIOR
+// ==============================================================================
+
+/// <summary>
+/// Distinct count of unique human consumers identified by customer_unique_id.
+/// Distinguishes persistent consumer identity from transient per-order customer_id tokens.
+/// Total unique consumers: 96,096.
+/// </summary>
+Total Unique Customers = 
+DISTINCTCOUNT(DimCustomers[customer_unique_id])
+/* FormatString: #,##0 */
+
+/// <summary>
+/// Count of unique human consumers who placed 2 or more orders in the marketplace.
+/// Verified baseline: 2,997 repeat buyers.
+/// </summary>
+Repeat Customers Count = 
+COUNTROWS(
+    FILTER(
+        VALUES(DimCustomers[customer_unique_id]),
+        CALCULATE(DISTINCTCOUNT(FactOrders[order_id])) > 1
+    )
+)
+/* FormatString: #,##0 */
+
+/// <summary>
+/// Repeat Customer Rate (Repurchase Rate) as percentage of unique consumers.
+/// Verified baseline: 2,997 / 96,096 = 3.1188% (~3.12%).
+/// Highlights the predominantly one-off acquisition nature of early marketplace traffic.
+/// </summary>
+Repeat Customer Rate = 
+DIVIDE(
+    [Repeat Customers Count],
+    [Total Unique Customers],
+    BLANK()
+)
+/* FormatString: 0.00% */
+
+/// <summary>
+/// Delivered GMV contribution generated exclusively by repeat buyers.
+/// Evaluates high-LTV customer segment value.
+/// </summary>
+Repeat Buyer GMV = 
+CALCULATE(
+    [Total GMV],
+    FILTER(
+        VALUES(DimCustomers[customer_unique_id]),
+        CALCULATE(DISTINCTCOUNT(FactOrders[order_id])) > 1
+    )
+)
+/* FormatString: "R$ " #,##0.00 */
+
+/// <summary>
+/// Percentage contribution of repeat buyers to total marketplace GMV.
+/// </summary>
+Repeat Buyer GMV Share = 
+DIVIDE(
+    [Repeat Buyer GMV],
+    [Total GMV],
+    BLANK()
+)
+/* FormatString: 0.00% */
+
+
+// ==============================================================================
+// 6. CATEGORY MERCHANDISING & PARETO DIAGNOSTICS
+// ==============================================================================
+
+/// <summary>
+/// Distinct count of product SKUs transacted.
+/// </summary>
+Active Product SKUs = 
+DISTINCTCOUNT(FactOrderItems[product_key])
+/* FormatString: #,##0 */
+
+/// <summary>
+/// Distinct count of active merchants fulfilling successfully delivered order transactions.
+/// Verified baseline: 2,970 active sellers out of 3,095 registered sellers.
+/// </summary>
+Active Sellers = 
+CALCULATE(
+    DISTINCTCOUNT(FactOrderItems[seller_key]),
+    FactOrders[order_status] = "delivered"
+)
+/* FormatString: #,##0 */
+
+/// <summary>
+/// Total registered marketplace sellers cataloged in DimSellers.
+/// Verified baseline: 3,095 sellers.
+/// </summary>
+Total Sellers = 
+DISTINCTCOUNT(DimSellers[seller_key])
+/* FormatString: #,##0 */
+
+/// <summary>
+/// Average units of products per order transaction.
+/// </summary>
+Average Items per Order = 
+DIVIDE(
+    COUNT(FactOrderItems[order_item_key]),
+    [Delivered Orders],
+    BLANK()
+)
+/* FormatString: 0.00 */
+
+/// <summary>
+/// Cumulative percentage of GMV sorted descending by category revenue (Pareto 80/20 analysis).
+/// Uses rank and category tie-breaking to ensure strict monotonicity.
+/// </summary>
+Pareto Cumulative GMV % = 
+IF(
+    NOT(ISINSCOPE(DimProducts[category_name_english])) || ISBLANK([Total GMV]),
+    BLANK(),
+    VAR CurrentGMV = [Total GMV]
+    VAR CurrentCategory = SELECTEDVALUE(DimProducts[category_name_english])
+    VAR CategoryTable = 
+        ADDCOLUMNS(
+            ALLSELECTED(DimProducts[category_name_english]),
+            "@CategoryGMV", [Total GMV]
+        )
+    VAR FilteredTable = 
+        FILTER(CategoryTable, NOT(ISBLANK([@CategoryGMV])) && [@CategoryGMV] > 0)
+    VAR TotalSelectedGMV = SUMX(FilteredTable, [@CategoryGMV])
+    VAR CumulativeGMV = 
+        SUMX(
+            FILTER(
+                FilteredTable,
+                [@CategoryGMV] > CurrentGMV ||
+                ([@CategoryGMV] = CurrentGMV && COALESCE(DimProducts[category_name_english], "") <= COALESCE(CurrentCategory, ""))
+            ),
+            [@CategoryGMV]
+        )
+    RETURN
+    DIVIDE(CumulativeGMV, TotalSelectedGMV, BLANK())
+)
+/* FormatString: 0.00% */
+
+/// <summary>
+/// Category GMV share relative to currently selected marketplace total.
+/// </summary>
+Category GMV Share % = 
+VAR TotalMarketGMV = 
+    CALCULATE(
+        [Total GMV],
+        ALLSELECTED(DimProducts[category_name_english])
+    )
+RETURN
+DIVIDE(
+    [Total GMV],
+    TotalMarketGMV,
+    BLANK()
+)
+/* FormatString: 0.00% */
+
+/// <summary>
+/// Distinct count of delivered orders containing products in the selected category.
+/// Category-aware measure operating at the FactOrderItems grain with delivered-order filtering.
+/// Note: Multi-category orders count once in each applicable category (sum of categories != total unique orders).
+/// </summary>
+Delivered Orders (Category) = 
+CALCULATE(
+    DISTINCTCOUNT(FactOrderItems[order_id]),
+    FactOrders[order_status] = "delivered"
+)
+/* FormatString: #,##0 */
+
+
+// ==============================================================================
+// 7. PHASE 5 & 6: CUSTOMER REVIEW INTELLIGENCE & MULTI-MODEL LLM MEASURES
+// ==============================================================================
+
+/// <summary>
+/// Total count of reviews bearing customer written text (comment title or message).
+/// Denominator for text sentiment analysis: 42,697 text-bearing reviews.
+/// </summary>
+Text-Bearing Reviews Count = 
+CALCULATE(
+    COUNT(FactReviews[review_key]),
+    NOT(ISBLANK(FactReviews[review_comment_title])) || NOT(ISBLANK(FactReviews[review_comment_message]))
+)
+/* FormatString: #,##0 */
+
+/// <summary>
+/// Percentage of all submitted marketplace reviews that contain customer text commentary.
+/// Marketplace baseline: 43.03% (42,697 text reviews / 99,224 total reviews).
+/// </summary>
+Review Text Coverage % = 
+DIVIDE(
+    [Text-Bearing Reviews Count],
+    [Total Reviews],
+    BLANK()
+)
+/* FormatString: 0.00% */
+
+/// <summary>
+/// Count of review analyses with status = 'completed' in FactReviewAnalysis.
+/// Strictly excludes failed/truncated records from completed sentiment distributions.
+/// Verified baseline: 132 completed (100 Mock + 28 Gemini 3.8 + 4 Gemini 3.5 Flash-Lite).
+/// </summary>
+Completed Review Analyses Count = 
+CALCULATE(
+    COUNT(FactReviewAnalysis[review_id]),
+    FactReviewAnalysis[status] = "completed"
+)
+/* FormatString: #,##0 */
+
+/// <summary>
+/// Count of review analyses marked with status = 'failed' in FactReviewAnalysis.
+/// Preserved immutably for operational auditing and recovery. Verified baseline: 28 records.
+/// </summary>
+Failed Review Analyses Count = 
+CALCULATE(
+    COUNT(FactReviewAnalysis[review_id]),
+    FactReviewAnalysis[status] = "failed"
+)
+/* FormatString: #,##0 */
+
+/// <summary>
+/// Reviews completed by candidate model Gemini 3.5 Flash-Lite (minimal thinking level).
+/// Verified baseline: 4 reviews (exploratory evaluation sample).
+/// </summary>
+Gemini 3.5 Flash-Lite Completed Count = 
+CALCULATE(
+    COUNT(FactReviewAnalysis[review_id]),
+    FactReviewAnalysis[status] = "completed",
+    FactReviewAnalysis[model_name] = "gemini-3.5-flash-lite"
+)
+/* FormatString: #,##0 */
+
+/// <summary>
+/// Reviews completed by baseline production model Gemini 3.8 Flash (low thinking level).
+/// Verified baseline: 28 completed reviews.
+/// </summary>
+Gemini 3.8 Flash Completed Count = 
+CALCULATE(
+    COUNT(FactReviewAnalysis[review_id]),
+    FactReviewAnalysis[status] = "completed",
+    FactReviewAnalysis[model_name] = "gemini-3.8-flash"
+)
+/* FormatString: #,##0 */
+
+/// <summary>
+/// Reviews completed by deterministic Portuguese MockLLMClient.
+/// Verified baseline: 100 completed reviews.
+/// </summary>
+Mock NLP Completed Count = 
+CALCULATE(
+    COUNT(FactReviewAnalysis[review_id]),
+    FactReviewAnalysis[status] = "completed",
+    FactReviewAnalysis[model_name] = "mock-portuguese-nlp-v1"
+)
+/* FormatString: #,##0 */
+
+/// <summary>
+/// Review Intelligence Pilot coverage share relative to eligible text-bearing reviews.
+/// Baseline: 132 completed / 42,697 eligible text reviews = 0.31%.
+/// </summary>
+Review Intelligence Pilot Coverage % = 
+DIVIDE(
+    [Completed Review Analyses Count],
+    [Text-Bearing Reviews Count],
+    BLANK()
+)
+/* FormatString: 0.00% */
+
+/// <summary>
+/// Count of successfully completed reviews classified with negative sentiment.
+/// Strictly filters status = 'completed' to prevent failed records from corrupting sentiment.
+/// </summary>
+Text Sentiment Negative Count = 
+CALCULATE(
+    COUNT(FactReviewAnalysis[review_id]),
+    FactReviewAnalysis[status] = "completed",
+    FactReviewAnalysis[sentiment_label] = "negative"
+)
+/* FormatString: #,##0 */
+
+/// <summary>
+/// Share of successfully completed reviews that express negative text sentiment.
+/// </summary>
+Text Sentiment Negative % = 
+DIVIDE(
+    [Text Sentiment Negative Count],
+    [Completed Review Analyses Count],
+    BLANK()
+)
+/* FormatString: 0.00% */
+
+/// <summary>
+/// Count of successfully completed reviews classified with positive sentiment.
+/// </summary>
+Text Sentiment Positive Count = 
+CALCULATE(
+    COUNT(FactReviewAnalysis[review_id]),
+    FactReviewAnalysis[status] = "completed",
+    FactReviewAnalysis[sentiment_label] = "positive"
+)
+/* FormatString: #,##0 */
+
+/// <summary>
+/// Share of successfully completed reviews that express positive text sentiment.
+/// </summary>
+Text Sentiment Positive % = 
+DIVIDE(
+    [Text Sentiment Positive Count],
+    [Completed Review Analyses Count],
+    BLANK()
+)
+/* FormatString: 0.00% */
+
+/// <summary>
+/// Count of successfully completed reviews flagging delivery-related issues or feedback.
+/// </summary>
+Delivery Related Review Count = 
+CALCULATE(
+    COUNT(FactReviewAnalysis[review_id]),
+    FactReviewAnalysis[status] = "completed",
+    FactReviewAnalysis[delivery_related] = TRUE()
+)
+/* FormatString: #,##0 */
+
+/// <summary>
+/// Proportion of completed customer reviews that discuss delivery timeliness, tracking, or transit.
+/// </summary>
+Delivery Complaint Share % = 
+DIVIDE(
+    [Delivery Related Review Count],
+    [Completed Review Analyses Count],
+    BLANK()
+)
+/* FormatString: 0.00% */
+

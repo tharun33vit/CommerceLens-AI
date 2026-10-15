@@ -1,0 +1,297 @@
+{
+  "status": "COMPLETED_SUCCESSFULLY",
+  "discovered_files_count": 9,
+  "missing_files_count": 0,
+  "inventory": [
+    {
+      "table_name": "orders",
+      "file_name": "olist_orders_dataset.csv",
+      "file_size_bytes": 17654914,
+      "row_count": 99441,
+      "column_count": 8,
+      "columns": [
+        "order_id",
+        "customer_id",
+        "order_status",
+        "order_purchase_timestamp",
+        "order_approved_at",
+        "order_delivered_carrier_date",
+        "order_delivered_customer_date",
+        "order_estimated_delivery_date"
+      ],
+      "inferred_types": {
+        "order_id": "object",
+        "customer_id": "object",
+        "order_status": "object",
+        "order_purchase_timestamp": "datetime64[ns]",
+        "order_approved_at": "datetime64[ns]",
+        "order_delivered_carrier_date": "datetime64[ns]",
+        "order_delivered_customer_date": "datetime64[ns]",
+        "order_estimated_delivery_date": "datetime64[ns]"
+      },
+      "datetime_columns_parsed": [
+        "order_purchase_timestamp",
+        "order_approved_at",
+        "order_delivered_carrier_date",
+        "order_delivered_customer_date",
+        "order_estimated_delivery_date"
+      ]
+    },
+    {
+      "table_name": "order_items",
+      "file_name": "olist_order_items_dataset.csv",
+      "file_size_bytes": 15438671,
+      "row_count": 112650,
+      "column_count": 7,
+      "columns": [
+        "order_id",
+        "order_item_id",
+        "product_id",
+        "seller_id",
+        "shipping_limit_date",
+        "price",
+        "freight_value"
+      ],
+      "inferred_types": {
+        "order_id": "object",
+        "order_item_id": "int64",
+        "product_id": "object",
+        "seller_id": "object",
+        "shipping_limit_date": "datetime64[ns]",
+        "price": "float64",
+        "freight_value": "float64"
+      },
+      "datetime_columns_parsed": [
+        "shipping_limit_date"
+      ]
+    },
+    {
+      "table_name": "order_payments",
+      "file_name": "olist_order_payments_dataset.csv",
+      "file_size_bytes": 5777138,
+      "row_count": 103886,
+      "column_count": 5,
+      "columns": [
+        "order_id",
+        "payment_sequential",
+        "payment_type",
+        "payment_installments",
+        "payment_value"
+      ],
+      "inferred_types": {
+        "order_id": "object",
+        "payment_sequential": "int64",
+        "payment_type": "object",
+        "payment_installments": "int64",
+        "payment_value": "float64"
+      },
+      "datetime_columns_parsed": []
+    },
+    {
+      "table_name": "order_reviews",
+      "file_name": "olist_order_reviews_dataset.csv",
+      "file_size_bytes": 14451670,
+      "row_count": 99224,
+      "column_count": 7,
+      "columns": [
+        "review_id",
+        "order_id",
+        "review_score",
+        "review_comment_title",
+        "review_comment_message",
+        "review_creation_date",
+        "review_answer_timestamp"
+      ],
+      "inferred_types": {
+        "review_id": "object",
+        "order_id": "object",
+        "review_score": "int64",
+        "review_comment_title": "object",
+        "review_comment_message": "object",
+        "review_creation_date": "datetime64[ns]",
+        "review_answer_timestamp": "datetime64[ns]"
+      },
+      "datetime_columns_parsed": [
+        "review_creation_date",
+        "review_answer_timestamp"
+      ]
+    },
+    {
+      "table_name": "customers",
+      "file_name": "olist_customers_dataset.csv",
+      "file_size_bytes": 9033957,
+      "row_count": 99441,
+      "column_count": 5,
+      "columns": [
+        "customer_id",
+        "customer_unique_id",
+        "customer_zip_code_prefix",
+        "customer_city",
+        "customer_state"
+      ],
+      "inferred_types": {
+        "customer_id": "object",
+        "customer_unique_id": "object",
+        "customer_zip_code_prefix": "int64",
+        "customer_city": "object",
+        "customer_state": "object"
+      },
+      "datetime_columns_parsed": []
+    },
+    {
+      "table_name": "sellers",
+      "file_name": "olist_sellers_dataset.csv",
+      "file_size_bytes": 174703,
+      "row_count": 3095,
+      "column_count": 4,
+      "columns": [
+        "seller_id",
+        "seller_zip_code_prefix",
+        "seller_city",
+        "seller_state"
+      ],
+      "inferred_types": {
+        "seller_id": "object",
+        "seller_zip_code_prefix": "int64",
+        "seller_city": "object",
+        "seller_state": "object"
+      },
+      "datetime_columns_parsed": []
+    },
+    {
+      "table_name": "products",
+      "file_name": "olist_products_dataset.csv",
+      "file_size_bytes": 2379446,
+      "row_count": 32951,
+      "column_count": 9,
+      "columns": [
+        "product_id",
+        "product_category_name",
+        "product_name_lenght",
+        "product_description_lenght",
+        "product_photos_qty",
+        "product_weight_g",
+        "product_length_cm",
+        "product_height_cm",
+        "product_width_cm"
+      ],
+      "inferred_types": {
+        "product_id": "object",
+        "product_category_name": "object",
+        "product_name_lenght": "float64",
+        "product_description_lenght": "float64",
+        "product_photos_qty": "float64",
+        "product_weight_g": "float64",
+        "product_length_cm": "float64",
+        "product_height_cm": "float64",
+        "product_width_cm": "float64"
+      },
+      "datetime_columns_parsed": []
+    },
+    {
+      "table_name": "geolocation",
+      "file_name": "olist_geolocation_dataset.csv",
+      "file_size_bytes": 61273883,
+      "row_count": 1000163,
+      "column_count": 5,
+      "columns": [
+        "geolocation_zip_code_prefix",
+        "geolocation_lat",
+        "geolocation_lng",
+        "geolocation_city",
+        "geolocation_state"
+      ],
+      "inferred_types": {
+        "geolocation_zip_code_prefix": "int64",
+        "geolocation_lat": "float64",
+        "geolocation_lng": "float64",
+        "geolocation_city": "object",
+        "geolocation_state": "object"
+      },
+      "datetime_columns_parsed": []
+    },
+    {
+      "table_name": "category_translation",
+      "file_name": "product_category_name_translation.csv",
+      "file_size_bytes": 2613,
+      "row_count": 71,
+      "column_count": 2,
+      "columns": [
+        "product_category_name",
+        "product_category_name_english"
+      ],
+      "inferred_types": {
+        "product_category_name": "object",
+        "product_category_name_english": "object"
+      },
+      "datetime_columns_parsed": []
+    }
+  ],
+  "cleaning_summary": {
+    "orders": {
+      "total_records": 99441,
+      "delivered_orders": 96478,
+      "late_orders": 7827
+    },
+    "customers": {
+      "total_customers": 99441,
+      "distinct_unique_customers": 96096
+    },
+    "sellers": {
+      "total_sellers": 3095
+    },
+    "order_items": {
+      "total_items": 112650,
+      "total_gmv": 13591643.700000003,
+      "total_freight": 2251909.54
+    },
+    "order_payments": {
+      "total_records": 103886
+    },
+    "order_reviews": {
+      "total_records": 99224
+    },
+    "products": {
+      "total_products": 32951,
+      "categories_count": 73,
+      "products_with_null_category": 610,
+      "products_with_untranslated_category": 13,
+      "distinct_untranslated_categories": [
+        "pc_gamer",
+        "portateis_cozinha_e_preparadores_de_alimentos"
+      ]
+    },
+    "geolocation": {
+      "raw_geo_points": 1000163,
+      "valid_geo_points": 1000123,
+      "distinct_zip_centroids": 19010
+    }
+  },
+  "saved_processed_files": {
+    "orders_csv": "C:\\Users\\Admin\\Desktop\\CommerceLens-AI\\data\\processed\\cleaned_orders.csv",
+    "orders_parquet": "C:\\Users\\Admin\\Desktop\\CommerceLens-AI\\data\\processed\\cleaned_orders.parquet",
+    "customers_csv": "C:\\Users\\Admin\\Desktop\\CommerceLens-AI\\data\\processed\\cleaned_customers.csv",
+    "customers_parquet": "C:\\Users\\Admin\\Desktop\\CommerceLens-AI\\data\\processed\\cleaned_customers.parquet",
+    "sellers_csv": "C:\\Users\\Admin\\Desktop\\CommerceLens-AI\\data\\processed\\cleaned_sellers.csv",
+    "sellers_parquet": "C:\\Users\\Admin\\Desktop\\CommerceLens-AI\\data\\processed\\cleaned_sellers.parquet",
+    "order_items_csv": "C:\\Users\\Admin\\Desktop\\CommerceLens-AI\\data\\processed\\cleaned_order_items.csv",
+    "order_items_parquet": "C:\\Users\\Admin\\Desktop\\CommerceLens-AI\\data\\processed\\cleaned_order_items.parquet",
+    "order_payments_csv": "C:\\Users\\Admin\\Desktop\\CommerceLens-AI\\data\\processed\\cleaned_order_payments.csv",
+    "order_payments_parquet": "C:\\Users\\Admin\\Desktop\\CommerceLens-AI\\data\\processed\\cleaned_order_payments.parquet",
+    "order_reviews_csv": "C:\\Users\\Admin\\Desktop\\CommerceLens-AI\\data\\processed\\cleaned_order_reviews.csv",
+    "order_reviews_parquet": "C:\\Users\\Admin\\Desktop\\CommerceLens-AI\\data\\processed\\cleaned_order_reviews.parquet",
+    "products_csv": "C:\\Users\\Admin\\Desktop\\CommerceLens-AI\\data\\processed\\cleaned_products.csv",
+    "products_parquet": "C:\\Users\\Admin\\Desktop\\CommerceLens-AI\\data\\processed\\cleaned_products.parquet",
+    "category_translation_csv": "C:\\Users\\Admin\\Desktop\\CommerceLens-AI\\data\\processed\\cleaned_category_translation.csv",
+    "category_translation_parquet": "C:\\Users\\Admin\\Desktop\\CommerceLens-AI\\data\\processed\\cleaned_category_translation.parquet",
+    "geolocation_centroids_csv": "C:\\Users\\Admin\\Desktop\\CommerceLens-AI\\data\\processed\\cleaned_geolocation_centroids.csv",
+    "geolocation_centroids_parquet": "C:\\Users\\Admin\\Desktop\\CommerceLens-AI\\data\\processed\\cleaned_geolocation_centroids.parquet"
+  },
+  "report_paths": {
+    "file_inventory_json": "C:\\Users\\Admin\\Desktop\\CommerceLens-AI\\reports\\data_quality\\file_inventory.json",
+    "missing_values_csv": "C:\\Users\\Admin\\Desktop\\CommerceLens-AI\\reports\\data_quality\\missing_values_summary.csv",
+    "relationship_validation_json": "C:\\Users\\Admin\\Desktop\\CommerceLens-AI\\reports\\data_quality\\relationship_validation.json",
+    "significant_findings_json": "C:\\Users\\Admin\\Desktop\\CommerceLens-AI\\reports\\data_quality\\significant_findings.json",
+    "markdown_report": "C:\\Users\\Admin\\Desktop\\CommerceLens-AI\\reports\\data_quality\\data_quality_report.md"
+  }
+}

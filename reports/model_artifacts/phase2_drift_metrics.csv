@@ -1,0 +1,8 @@
+feature,train_mean,val_mean,test_mean,val_shift_sigmas,test_shift_sigmas,ks_train_val,ks_train_test
+estimated_delivery_days,24.58,25.21,17.4,0.078,-0.899,0.0908,0.3922
+distance_km,612.81,567.58,563.54,-0.076,-0.083,0.0523,0.0634
+total_freight_value,22.28,23.91,24.52,0.081,0.111,0.1464,0.1711
+freight_share,0.21,0.21,0.22,-0.002,0.062,0.0228,0.0413
+total_merchandise_value,136.13,142.71,136.41,0.032,0.001,0.0324,0.0141
+total_items_count,1.14,1.15,1.13,0.02,-0.028,0.0064,0.0102
+total_weight_g,2471.29,2303.5,1992.54,-0.034,-0.097,0.0308,0.0718

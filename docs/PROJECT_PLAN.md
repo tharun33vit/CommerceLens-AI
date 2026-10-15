@@ -82,55 +82,88 @@ flowchart LR
 
 ---
 
-### Phase 4: Machine Learning — Delivery-Risk Prediction
-- **Objective**: Build and evaluate a classification model predicting whether an order will be delivered late, using strictly point-in-time features.
-- **Key Tasks**:
-  1. Define the prediction target: `is_late = 1` if `order_delivered_customer_date > order_estimated_delivery_date` else `0`.
-  2. Feature engineering (strictly at order/approval time):
-     - Distance estimation between customer and seller zip code prefixes.
-     - Freight value, freight-to-price ratio, item count, total weight, product volume.
-     - Temporal features: Day of week, month, seasonality, holiday proximity.
-     - Historical seller performance prior to the order timestamp (point-in-time rolling average).
-  3. Prevent data leakage: Exclude carrier handover dates and delivery timestamps.
-  4. Train/Test Split: Chronological split (e.g., train on first 80% of historical timeline, test on final 20%).
-  5. Baseline model: Dummy classifier and Logistic Regression.
-  6. Advanced models: Random Forest, LightGBM / CatBoost.
-  7. Metrics: Precision, Recall, F1, PR-AUC, Confusion Matrix (prioritizing recall of late deliveries under constrained false alarms).
-  8. Model explainability: SHAP values and feature importance rankings.
-- **Validation Criteria**: Clear benchmark improvement over baseline; reproducible seed; documented PR-AUC.
-- **Interview Defense Point**: How to prevent target leakage in logistics ML, handle heavy class imbalance (~8% positive class), and select business-aligned decision thresholds.
+### Phase 4: Machine Learning — Delivery-Risk Prediction (Completed)
+- **Objective**: Build and evaluate a reproducible, explainable classification pipeline predicting late deliveries using strictly point-in-time features known at purchase time.
+- **Implemented Modules (`src/commercelens/ml/`)**:
+  - `features.py`: Point-in-time extraction from PostgreSQL star schema, Haversine distance computation, and runtime leakage validation (`validate_no_leakage()`).
+  - `split.py`: Strict chronological partitioning (`chronological_split_by_date()`).
+  - `pipeline.py`: Scikit-learn preprocessing `ColumnTransformer` (imputation, scaling, one-hot encoding) encapsulated with estimators.
+  - `evaluate.py`: Imbalanced metrics suite (PR-AUC, ROC-AUC, Brier score, Confusion Matrix) and validation threshold tuning.
+  - `explain.py`: Standardized coefficients, odds ratios, feature importances, subgroup error slicing (macro-regions, top categories), and causality disclaimers.
+  - `predict.py`: Production `DeliveryRiskPredictor` with automated validation and risk-tier categorization.
+- **Experimental Population & Splits**:
+  - Supervised cohort: $96,470$ delivered orders ($7,826$ late, $8.11\%$ prevalence). Excluded 8 delivered orders missing actual delivery timestamps.
+  - **Train Period**: 2016-09-15 to 2018-04-30 ($N = 71,118$, $8.79\%$ late).
+  - **Validation Period**: 2018-05-01 to 2018-06-30 ($N = 12,845$, $4.97\%$ late).
+  - **Holdout Test Period**: 2018-07-01 to 2018-08-29 ($N = 12,507$, $7.48\%$ late).
+- **Benchmark & Model Results**:
+  - **Validation Set**:
+    - Majority Baseline: ROC-AUC = $0.5000$, PR-AUC = $0.0497$, Precision = $0.0000$, Recall = $0.0000$.
+    - Logistic Regression ($C=0.1$, balanced): ROC-AUC = $0.7902$, PR-AUC = $0.1779$ (**3.58x lift** over base rate).
+    - Random Forest: ROC-AUC = $0.7317$, PR-AUC = $0.1324$.
+    - HistGradientBoosting: ROC-AUC = $0.7856$, PR-AUC = $0.1814$.
+  - **Threshold Selection**: Tuned $F_1$-optimal threshold on validation data: **$\tau = 0.72$**.
+  - **Untouched Holdout Test Set ($\tau = 0.72$)**:
+    - ROC-AUC = **$0.6112$**, PR-AUC = **$0.1157$** (**1.55x lift** over test base rate $0.0748$).
+    - Precision = **$10.37\%$**, Recall = **$32.05\%$** ($300 / 936$ late orders caught), $F_1 = 0.1567$, Brier score = $0.1774$.
+    - At standard $\tau = 0.50$, recall is **$76.82\%$** ($719 / 936$ late deliveries caught), precision is $9.43\%$.
+- **Saved Model Artifacts (`reports/model_artifacts/`)**:
+  - `model_pipeline.joblib`, `baseline_pipeline.joblib`, `feature_schema.json`, `model_metadata.json`, `metrics.json`, `evaluation_report.md`, `feature_importance.csv`, `validation_threshold_sweep.csv`, `subgroup_error_region.csv`, `subgroup_error_category.csv`.
+- **Documentation**:
+  - `docs/ML_MODEL_CARD.md`, `docs/ML_FEATURE_DICTIONARY.md`, `docs/ML_EVALUATION.md`.
+- **Verification Criteria**:
+  - 14/14 ML pipeline unit and integration tests passing (`tests/test_ml_pipeline.py`).
+  - Full repo test suite: **89 passed** (100% pass rate).
+- **Interview Defense Point**: Why chronological splitting captures real macroeconomic drift (e.g., May 2018 Brazilian truck drivers' strike), why Logistic Regression generalizes better than complex trees under temporal shift, and how point-in-time feature discipline eliminates target leakage.
 
 ---
 
-### Phase 5: NLP & Customer Review Intelligence
-- **Objective**: Extract actionable intelligence from Portuguese review comments using NLP and LLM APIs.
-- **Key Tasks**:
-  1. Text preprocessing for Brazilian Portuguese (stopword removal, lemmatization/stemming, accent handling).
-  2. Sentiment classification and topic modeling (logistics delay, product defect, wrong item, customer service).
-  3. LLM provider abstraction layer (`commercelens.llm`):
-     - Integration with Google Gemini API using structured JSON output (Pydantic schema).
-     - Validation of LLM classifications on a human-audited or rule-labeled evaluation sample ($N \ge 200$).
-  4. Extraction of customer pain points with quantitative attribution to delivery delay.
-- **Validation Criteria**: Evaluation sample precision/recall documented; API token usage tracked and budgeted; zero API keys committed.
-- **Interview Defense Point**: Trade-offs between classical Portuguese NLP (e.g., TF-IDF, NLTK) vs Few-Shot LLM prompt engineering, and how to evaluate LLM accuracy systematically.
+### Phase 5: NLP & Customer Review Intelligence (Completed)
+- **Objective**: Extract actionable intelligence from Brazilian Portuguese customer reviews using structured LLM outputs, grounded verbatim evidence quotes, relational PostgreSQL persistence, and Power BI integration.
+- **Implemented Modules (`src/commercelens/llm/`)**:
+  - `schema.py`: Controlled 15-theme taxonomy, sentiment enums, and Pydantic models (`ReviewAnalysisOutput`, `ReviewAnalysisRecord`).
+  - `redact.py`: Brazilian Portuguese text normalization, PII sanitization (redacting emails to `[EMAIL]`, phone numbers to `[PHONE]`, CPFs to `[CPF]`), and programmatic quote grounding verification (`is_quote_grounded`).
+  - `prompts.py`: Versioned prompt templates (`PROMPT_VERSION = "v1.0"`), Portuguese taxonomy guidelines, and prompt injection defense.
+  - `client.py`: `LLMClientBase` interface, `GeminiLLMClient` (using `google.genai` with native schema enforcement, rate-limiting, and bounded retries), and deterministic `MockLLMClient` for offline testing.
+  - `cache.py`: Deterministic SHA-256 file-based response caching (`reports/review_intelligence/.cache/`).
+  - `persistence.py`: Idempotent PostgreSQL persistence into `fact_review_analysis` and `fact_review_themes`.
+  - `pipeline.py`: Orchestrator with batch persistence, progress reporting, and strict safe execution limits (default 100 reviews; `--all` required for full run).
+  - `analytics.py`: Coverage statistics, sentiment distribution, rating-proxy concordance analysis, delivery-cohort cross-tabulation, and human double-blind audit template generator.
+- **Source Population & Pilot Cohort**:
+  - Total source reviews: **$99,224$** records ($98,410$ distinct review IDs; compound key `(review_id, order_id)` enforces 100% uniqueness).
+  - Text-bearing eligible reviews: **$42,697$** ($43.03\%$ of total reviews).
+  - Reviews without written comments: **$56,527$** ($56.97\%$). Preserved as rating-only without synthetic hallucination.
+  - Pilot cohort analyzed: **$100$ reviews** ($100\%$ success rate, $0$ failures).
+  - Sentiment breakdown: $57.0\%$ positive, $25.0\%$ unclear, $11.0\%$ negative, $5.0\%$ mixed, $2.0\%$ neutral.
+  - Rating proxy concordance: **$60.00\%$** (demonstrating why ratings are not ground-truth sentiment labels).
+- **Delivered Artifacts**:
+  - SQL views: `sql/views/02_review_intelligence_views.sql` (5 analytical views).
+  - Power BI measures: 7 new DAX measures in `dashboards/powerbi/dax_measures.dax`.
+  - Analytical reports: `reports/review_intelligence/review_intelligence_report.md`, `sentiment_distribution.csv`, `theme_frequency.csv`, `delivery_cohort_sentiment.csv`, and `human_annotation_template.csv`.
+  - Documentation: `docs/LLM_REVIEW_INTELLIGENCE.md`, `docs/REVIEW_THEME_TAXONOMY.md`, `docs/REVIEW_INTELLIGENCE_EVALUATION.md`.
+- **Verification Criteria**:
+  - 15/15 review intelligence tests passing (`tests/test_review_intelligence.py`).
+  - Full repo test suite: **104 passed** (100% pass rate).
+- **Interview Defense Point**: Why LLM structured output with verbatim quote grounding outperforms bag-of-words / VADER for multi-aspect feedback, why ratings are imperfect proxies for text sentiment, and how prompt injection defense and strict cost ceilings protect production pipelines.
 
 ---
 
-### Phase 6: Analytics Copilot & Streamlit Web Platform
-- **Objective**: Build a cohesive, interactive web application uniting analytics dashboards, ML inference, review insights, and an evidence-grounded AI Copilot.
-- **Key Tasks**:
-  1. Streamlit application architecture (`src/commercelens/app/`):
-     - Tab 1: Executive KPI Dashboard (interactive Plotly charts).
-     - Tab 2: Logistics Delay Forecaster (interactive scenario testing using the trained ML model).
-     - Tab 3: Customer Sentiment Explorer (review search, topic filters, verbatim drill-down).
-     - Tab 4: Natural Language Analytics Copilot.
-  2. Grounded Copilot Architecture:
-     - User asks question in natural language.
-     - Copilot matches question to approved analytical queries / metric calculator functions.
-     - Returns validated metric, contextual interpretation, sample size, and caveat statement.
-     - Rejects out-of-scope or ungrounded queries.
-- **Validation Criteria**: App runs smoothly with zero unhandled exceptions; responsive UI with empty states and error boundaries; zero arbitrary SQL execution.
-- **Interview Defense Point**: How to build safe, hallucination-resistant LLM agents for business intelligence without giving raw database write/read access.
+### Phase 6: Analytics Copilot & Streamlit Web Platform (Completed)
+- **Objective**: Build a professional, interactive web application uniting analytics dashboards, ML inference, review insights, and an evidence-grounded AI Copilot.
+- **Implemented Architecture (`src/commercelens/app/`)**:
+  - `main.py`: Streamlit entry point (`streamlit run src/commercelens/app/main.py`), sidebar health monitors, and global filters.
+  - `components.py`: Custom CSS design system, metric cards preventing value truncation, Plotly theme customization, and MockLLM disclaimer banners.
+  - `data.py`: Cached PostgreSQL access layer (`@st.cache_data(ttl=300)`) enforcing grain discipline and anti-fan-out CTEs.
+  - `copilot.py`: `GroundedAnalyticsCopilot` with 8 approved business intents, SQL template mapping, evidence grounding, and anti-injection defenses.
+  - `tabs/executive.py`: Tab 1 Executive KPI dashboard with Plotly monthly sales trends, Pareto category charts, and state distributions.
+  - `tabs/forecaster.py`: Tab 2 Delivery Risk Forecaster with 27 point-in-time features, strict leakage rejection, holdout validation disclosures, and operational triage advice.
+  - `tabs/sentiment.py`: Tab 3 Customer Sentiment Explorer with prominent mock pilot notices, delivery cohort comparisons, and PII-redacted review explorer.
+  - `tabs/copilot_tab.py`: Tab 4 Grounded Analytics Copilot conversational UI with preset quick prompts, evidence preview tables, and SQL view provenance.
+- **Documentation & Verification**:
+  - `docs/STREAMLIT_APPLICATION.md`, `docs/ANALYTICS_COPILOT.md`.
+  - 13/13 Phase 6 unit & integration tests passing (`tests/test_streamlit_app.py`).
+  - Full repo test suite: **117 passed** (100% pass rate).
+- **Interview Defense Point**: How to build safe, hallucination-resistant LLM agents for business intelligence using strict intent allowlists and parameterized SQL templates without giving raw database write or arbitrary SQL generation access.
 
 ---
 

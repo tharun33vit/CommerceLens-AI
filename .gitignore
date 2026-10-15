@@ -88,6 +88,11 @@ coverage.xml
 Thumbs.db
 desktop.ini
 
-# Power BI local backup and temporary cache files
+# Power BI local backup, cache, and user settings
 *.pbix.backup
 *.pbit.backup
+**/.pbi/
+*.abf
+
+# Developer scratch files and logs
+scratch/

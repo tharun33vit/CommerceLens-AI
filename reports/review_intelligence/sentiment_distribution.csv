@@ -1,0 +1,6 @@
+sentiment_label,review_count,percentage_share
+positive,74,56.06
+unclear,25,18.94
+negative,21,15.91
+mixed,10,7.58
+neutral,2,1.52
